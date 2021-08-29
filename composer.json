@@ -1,0 +1,27 @@
+{
+    "name": "armincms/contract",
+    "description": "Application contracts.",
+    "keywords": [],
+    "license": "ARMINGROUP",
+    "require": { 
+        "zareismail/cypress": "dev-master",
+        "laravel/nova": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Armincms\\Contract\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Armincms\\Contract\\ServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true 
+}
