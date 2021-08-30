@@ -9,7 +9,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Armincms\\Contract\\": "src/"
+            "Armincms\\Contract\\": "src/",
+            "Armincms\\Factories\\": "database/factories/",
+            "Armincms\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Armincms\\Tests\\": "tests/"
         }
     },
     "extra": {

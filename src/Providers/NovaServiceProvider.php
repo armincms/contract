@@ -1,10 +1,8 @@
 <?php
 
 namespace Armincms\Contract\Providers;
-
-use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Cards\Help;
-use Laravel\Nova\Nova;
+  
+use Illuminate\Support\Facades\Gate;   
 use Laravel\Nova\NovaApplicationServiceProvider;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
@@ -16,20 +14,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function boot()
     {
-        parent::boot();
-    }
+        app('config')->set('nova.path', 'cp');
+        app('config')->set('nova.guard', 'admin');
 
-    /**
-     * Register the Nova routes.
-     *
-     * @return void
-     */
-    protected function routes()
-    {
-        Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+        parent::boot(); 
     }
 
     /**

@@ -12,6 +12,17 @@ class ServiceProvider extends AggregateServiceProvider
      * @var array
      */
     protected $providers = [
+        Providers\AuthServiceProvider::class,
         Providers\NovaServiceProvider::class,
-    ];  
+    ];
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {    
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+    }
 }
