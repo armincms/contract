@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
 use Zareismail\NovaPolicy\Nova\Permission;
 
 class Admin extends Resource
@@ -66,7 +67,7 @@ class Admin extends Resource
                 ->required(),
 
             BelongsToManyField::make(__('Permissions'), 'permissions', Permission::class)
-                ->required(),
+                ->hideFromIndex(),
 
             Password::make(__('Password'), 'password')
                 ->onlyOnForms()
@@ -74,6 +75,20 @@ class Admin extends Resource
                 ->updateRules('nullable', 'string', 'min:6', 'confirmed'),
 
             PasswordConfirmation::make(__('Password Confirmation'), 'password_confirmation'),
+
+            Panel::make(__('Profile'), [
+                Text::make(__('Firstname'), 'profile->firstname')
+                    ->hideFromIndex(),
+
+                Text::make(__('Lastname'), 'profile->lastname')
+                    ->hideFromIndex(),
+
+                Text::make(__('Mobile Number'), 'profile->mobile')
+                    ->hideFromIndex(),
+
+                Text::make(__('Phone Number'), 'profile->phone')
+                    ->hideFromIndex(),
+            ]),
         ];
     }
 
