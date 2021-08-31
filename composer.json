@@ -4,8 +4,10 @@
     "keywords": [],
     "license": "ARMINGROUP",
     "require": { 
+        "benjacho/belongs-to-many-field": "~2.0",
+        "laravel/nova": "^3.0",
         "zareismail/cypress": "dev-master",
-        "laravel/nova": "^3.0"
+        "zareismail/nova-policy": "~1.1"
     },
     "autoload": {
         "psr-4": {
