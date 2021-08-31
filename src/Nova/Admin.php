@@ -57,7 +57,7 @@ class Admin extends Resource
 
             Text::make(__('Username'), 'name')
                 ->required()
-                ->rules('required'),
+                ->rules('required', 'unique:admins,name,{{resourceId}}'),
 
             Text::make(__('Email'), 'email')
                 ->required()
