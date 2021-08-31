@@ -3,11 +3,20 @@
 namespace Armincms\Contract\Providers;
 
 use Armincms\Contract\Models\Admin;
-use Armincms\Contract\Models\User;
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;  
+use Armincms\Contract\Policies\AdminPolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider;  
 
 class AuthServiceProvider extends LaravelServiceProvider
 {
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        Admin::class => AdminPolicy::class,
+    ];
+
     /**
      * Bootstrap any application services.
      *
@@ -16,6 +25,7 @@ class AuthServiceProvider extends LaravelServiceProvider
     public function boot()
     {   
         $this->configureAdminGuard(); 
+        $this->registerPolicies();
     }  
 
     /**
