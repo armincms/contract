@@ -5,6 +5,7 @@
     "license": "ARMINGROUP",
     "require": { 
         "benjacho/belongs-to-many-field": "~2.0",
+        "infinety-es/nova-filemanager": "~2.5",
         "laravel/nova": "^3.0",
         "gregoriohc/laravel-nova-theme-responsive": "~0.8",
         "pishran/nova-rtl-theme": "~1.5",
