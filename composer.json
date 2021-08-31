@@ -6,6 +6,7 @@
     "require": { 
         "benjacho/belongs-to-many-field": "~2.0",
         "laravel/nova": "^3.0",
+        "pishran/nova-rtl-theme": "~1.5",
         "zareismail/cypress": "dev-master",
         "zareismail/nova-policy": "~1.1"
     },

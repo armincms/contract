@@ -24,5 +24,6 @@ class ServiceProvider extends AggregateServiceProvider
     public function boot()
     {    
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        app('config')->set('app.locale', 'fa');
     }
 }
