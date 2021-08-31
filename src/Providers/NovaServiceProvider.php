@@ -3,7 +3,13 @@
 namespace Armincms\Contract\Providers;
   
 use Illuminate\Support\Facades\Gate;   
+use Illuminate\Support\Str; 
+use Laravel\Nova\Actions\ActionResource;  
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Laravel\Nova\Resource;
+use Symfony\Component\Finder\Finder; 
+use ReflectionClass;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -13,12 +19,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      * @return void
      */
     public function boot()
-    {
+    { 
         app('config')->set('nova.path', 'cp');
         app('config')->set('nova.guard', 'admin');
 
         parent::boot(); 
-    }
+    } 
 
     /**
      * Register the Nova gate.
@@ -67,12 +73,30 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     }
 
     /**
-     * Register any application services.
+     * Register the application's Nova resources.
      *
      * @return void
      */
-    public function register()
+    protected function resources()
     {
-        //
+        $namespace = 'Armincms\\Contract\\';
+        $directory = dirname(__DIR__); 
+
+        $resources = [];
+
+        foreach ((new Finder)->in($directory)->files() as $resource) {
+            $resource = $namespace.str_replace(
+                ['/', '.php'],
+                ['\\', ''],
+                Str::after($resource->getPathname(), $directory.DIRECTORY_SEPARATOR)
+            ); 
+
+            if (is_subclass_of($resource, Resource::class) &&
+                ! (new ReflectionClass($resource))->isAbstract()) {
+                $resources[] = $resource;
+            }
+        }
+
+        Nova::resources(collect($resources)->sort()->all());
     }
 }

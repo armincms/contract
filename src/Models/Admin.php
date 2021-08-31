@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class Admin extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use InteractsWithPolicy, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -50,5 +51,18 @@ class Admin extends Authenticatable
     protected static function newFactory()
     {
         return app()->make(\Armincms\Factories\AdminFactory::class);
+    }
+
+    /**
+     * Determine the current user is Developer.
+     * 
+     * @return boolean
+     */
+    public function isDeveloper()
+    { 
+        return in_array($this->email, [
+            'zarehesmaiel@gmail.com',
+            config('superadmin.email'),
+        ]);
     }
 }
