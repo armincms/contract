@@ -13,6 +13,7 @@ class ServiceProvider extends AggregateServiceProvider
      */
     protected $providers = [
         Providers\AuthServiceProvider::class,
+        Providers\BlueprintServiceProvider::class,
         Providers\MediaServiceProvider::class,
         Providers\NovaServiceProvider::class,
     ];
