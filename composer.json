@@ -3,12 +3,13 @@
     "description": "Application contracts.",
     "keywords": [],
     "license": "ARMINGROUP",
-    "require": { 
+    "require": {  
         "benjacho/belongs-to-many-field": "~2.0",
         "gregoriohc/laravel-nova-theme-responsive": "~0.8",
         "infinety-es/nova-filemanager": "~2.5",
         "laravel/nova": "^3.0",
         "pishran/nova-rtl-theme": "~1.5",
+        "spatie/laravel-medialibrary": "~9.7",
         "zareismail/cypress": "dev-master",
         "zareismail/gutenberg": "*",
         "zareismail/nova-policy": "~1.1"
