@@ -49,7 +49,7 @@ class MediaServiceProvider extends LaravelServiceProvider
      */
     public function storages()
     {
-        collect($this->storageDisks)->each(function($name, $path) { 
+        collect($this->storageDisks)->each(function($path, $name) { 
             $this->app['config']->set("filesystems.disks.{$name}", [ 
                 'driver' => 'local',
                 'root' => storage_path("app/public/{$path}"),
