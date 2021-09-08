@@ -12,6 +12,6 @@ class PathGenerator extends DefaultPathGenerator
      */
     protected function getBasePath(SpatieMedia $media): string
     {
-        return parent::getBasePath($media).'/'.$media->created_at->format('yN/md');
+        return $media->created_at->format('Y/m/d').'/'.parent::getBasePath($media);
     } 
 }
