@@ -34,7 +34,7 @@ trait Fields
      */
     public function editor(string $name, string $attribute = 'content')
     {
-        return Trix::make(__($name), $attribute)->withFiles('public');
+        return Trix::make(__($name), $attribute)->withFiles('file');
     } 
 
     /**
