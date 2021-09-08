@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider; 
 use Infinety\Filemanager\FilemanagerTool;
 use Laravel\Nova\Nova; ;
+use Armincms\Contract\Media\PathGenerator;
 
 class MediaServiceProvider extends LaravelServiceProvider
 {
@@ -65,7 +66,7 @@ class MediaServiceProvider extends LaravelServiceProvider
      */
     public function spatie()
     { 
-        $this->app->config('media-library.path_generator', \Armincms\Contract\Media\PathGenerator::class);
+        $this->app['config']->set('media-library.path_generator', PathGenerator::class);
     }
 
     /**
