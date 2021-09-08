@@ -57,7 +57,7 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
         });
 
         Blueprint::macro('multilingualRefer', function() {
-            return $this->string('sequence_key', 10)->nullable()->index(); 
+            return $this->string('sequence_key', 100)->nullable()->index(); 
         });
 
         Blueprint::macro('multilingualSummary', function(string $name = 'name') {
