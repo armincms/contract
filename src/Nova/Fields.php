@@ -32,7 +32,7 @@ trait Fields
      * @param  string $collection 
      * @return \Laravle\Nova\Fields\Field             
      */
-    public function editor(string $name, string $attribute = 'content')
+    public function resourceEditor(string $name, string $attribute = 'content')
     {
         return Trix::make(__($name), $attribute)->withFiles('file');
     } 
@@ -45,7 +45,7 @@ trait Fields
      * @param  string $delimiter 
      * @return \Laravle\Nova\Fields\Field             
      */
-    public function image(string $name, string $collection = 'image', $delimiter = '::')
+    public function resourceImage(string $name, string $collection = 'image', $delimiter = '::')
     { 
         return tap(Image::make($name), function($field) use ($collection, $delimiter) { 
 
