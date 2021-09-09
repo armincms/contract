@@ -6,6 +6,7 @@ use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use DmitryBubyakin\NovaMedialibraryField\TransientModel;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -83,6 +84,21 @@ trait Fields
                     return $value;
                 });
         });
+    }
+
+    /**
+     * Create KeyValue field to handle metadata.
+     * 
+     * @param  string $name      
+     * @param  string $attribute 
+     * @return \Laravel\Nova\Fields\Field            
+     */
+    public function resourceMeta(string $name, string $attribute = 'meta')
+    { 
+        return KeyValue::make($name, $attribute)
+            ->keyLabel(__('Meta Key'))
+            ->valueLabel(__('Meta Value'))
+            ->actionText(__('Add new meta'));
     }
 
     /**
