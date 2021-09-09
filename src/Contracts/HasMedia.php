@@ -1,6 +1,6 @@
 <?php
 
-namespace Armincms\Contract\Models;
+namespace Armincms\Contract\Contracts;
  
 interface HasMedia extends \Spatie\MediaLibrary\HasMedia  
 {  

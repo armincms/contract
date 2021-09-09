@@ -1,6 +1,6 @@
 <?php
 
-namespace Armincms\Contract\Models;
+namespace Armincms\Contract\Concerns;
 
 trait Authorizable  
 { 
@@ -38,8 +38,14 @@ trait Authorizable
     public function auth()
     {
         return $this->morphTo();
-    }
+    } 
 
+    /**
+     * Query where authenticated.
+     *
+     * @var \Illuminate\Database\Eloquent\Model $user
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function scopeAuthorize($query, $user = null)
     {
         $user = is_null($user) ? request()->user() : $user;

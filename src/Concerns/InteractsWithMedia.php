@@ -1,6 +1,6 @@
 <?php
 
-namespace Armincms\Contract\Models;
+namespace Armincms\Contract\Concerns;
  
 trait InteractsWithMedia  
 { 
