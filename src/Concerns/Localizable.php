@@ -25,7 +25,7 @@ trait Localizable
      */
     public function scopeHasLocale($query, array $locales)
     {
-        return $query->whereIn($this->getQualifiedLocaleName(), (array) app()->getLocale());
+        return $query->whereIn($this->getQualifiedLocaleName(), $locales);
     }
  
     /**
@@ -36,6 +36,16 @@ trait Localizable
     public function getQualifiedLocaleName()
     {
         return $this->qualifyColumn($this->getLocaleName());
+    }
+
+    /**
+     * Get the locale value of the model.
+     *
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->{$this->getLocaleName()};
     }
 
     /**
