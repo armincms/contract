@@ -6,6 +6,7 @@
     "require": {  
         "armincms/conversion": "~0.2",
         "benjacho/belongs-to-many-field": "~2.0",
+        "cviebrock/eloquent-sluggable": "~8.0", 
         "dmitrybubyakin/nova-medialibrary-field": "~3.2",
         "gregoriohc/laravel-nova-theme-responsive": "~0.8",
         "infinety-es/nova-filemanager": "~2.5",
