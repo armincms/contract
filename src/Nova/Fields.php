@@ -48,7 +48,7 @@ trait Fields
      */
     public function resourceImage(string $name, string $collection = 'image', $delimiter = '::')
     { 
-        return tap(Image::make($name), function($field) use ($collection, $delimiter) { 
+        return tap(Image::make($name)->maxWidth(150), function($field) use ($collection, $delimiter) { 
 
             $callback = function($request, $model, $attribute) use ($delimiter, $collection) {
                 return function() use ($request, $model, $attribute, $delimiter, $collection) {
