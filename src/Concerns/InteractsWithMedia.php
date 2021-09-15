@@ -7,6 +7,42 @@ trait InteractsWithMedia
     use \Spatie\MediaLibrary\InteractsWithMedia; 
 
     /**
+     * Get all medias with conversions.
+     * 
+     * @return array
+     */
+    public function getMediasWithConversions()
+    {
+        return collect($this->getMediaCollections())->map(function($collection, $name) {
+            return $this->getMedia($name)->map(function($media) use ($name) {
+                $conversions = $media->getGeneratedConversions();
+
+                return collect($conversions)->map(function($value, $conversion) use ($name) { 
+                    return $this->getFirstMediaUrl($name, $conversion);
+                });
+            });
+        });
+    }
+
+    /**
+     * Get all medias with conversions.
+     * 
+     * @return array
+     */
+    public function getFirstMediasWithConversions()
+    {
+        return collect($this->getMediaCollections())->map(function($collection, $name) {
+            if (is_null($media = $this->getFirstMedia($name))) {
+                return [];
+            }
+
+            return collect($media->getGeneratedConversions())->map(function($value, $conversion) use ($name) { 
+                return $this->getFirstMediaUrl($name, $conversion);
+            });
+        });
+    }
+
+    /**
      * Register spatie media collections.
      * 
      * @return void
