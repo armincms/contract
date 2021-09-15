@@ -14,6 +14,7 @@ class ServiceProvider extends AggregateServiceProvider
     protected $providers = [
         Providers\AuthServiceProvider::class,
         Providers\BlueprintServiceProvider::class,
+        Providers\ConfigurationServiceProvider::class,
         Providers\GutenbergServiceProvider::class,
         Providers\MediaServiceProvider::class,
         Providers\NovaServiceProvider::class,
@@ -27,6 +28,5 @@ class ServiceProvider extends AggregateServiceProvider
     public function boot()
     {    
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        app('config')->set('app.locale', 'fa');
     }
 }
