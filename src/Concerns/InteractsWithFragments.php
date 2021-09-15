@@ -2,10 +2,24 @@
 
 namespace Armincms\Contract\Concerns;
 
-use Zareismail\Gutenberg\Models\GutenbergFragment;
+use Zareismail\Gutenberg\Gutenberg;
  
 trait InteractsWithFragments  
-{    
+{   
+    /**
+     * Get the url for the given request.
+     * 
+     * @param \Zareismail\Cypress\Http\Requests\CypressRequest $request 
+     * @return string         
+     */
+    public function getUrl($request)
+    { 
+        $website = $request->resolveComponent()->website();
+        $fragment = $website->fragments->firstWhere('fragment', $this->cypressFragment());
+
+        return $fragment->getUrl($this->getUri());
+    }
+
     /**
      * Get the availabel url addresses.
      *  
@@ -15,8 +29,8 @@ trait InteractsWithFragments
     {
         return $this->fragments()->map(function($fragment) {
             return [
-                'name' => $fragment->name,
-                'url'  => $fragment->getUrl($this->getUri()),
+                'name'  => $fragment->name,
+                'url'   => $fragment->getUrl($this->getUri()),
             ];
         });
     }
@@ -28,12 +42,9 @@ trait InteractsWithFragments
      */
     public function fragments()
     {
-        return once(function() {
-            return GutenbergFragment::activated()
-                    ->fragments((array) $this->cypressFragment())
-                    ->with('website')
-                    ->get();
-        });
+        return Gutenberg::cachedFragments()
+            ->where('fragment', $this->cypressFragment())                    
+            ->loadMissing('website');
     }
 
     /**
