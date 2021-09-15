@@ -11,7 +11,11 @@ use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class Admin extends Authenticatable
 {
-    use InteractsWithPolicy, HasApiTokens, HasFactory, Notifiable;
+    use InteractsWithPolicy;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfile;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
