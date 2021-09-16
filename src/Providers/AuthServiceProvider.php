@@ -3,7 +3,9 @@
 namespace Armincms\Contract\Providers;
 
 use Armincms\Contract\Models\Admin;
+use Armincms\Contract\Models\ExternalLink;
 use Armincms\Contract\Policies\AdminPolicy;
+use Armincms\Contract\Policies\ExternalLinkPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider;  
 
 class AuthServiceProvider extends LaravelServiceProvider
@@ -15,6 +17,7 @@ class AuthServiceProvider extends LaravelServiceProvider
      */
     protected $policies = [
         Admin::class => AdminPolicy::class,
+        ExternalLink::class => ExternalLinkPolicy::class,
     ];
 
     /**
