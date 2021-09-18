@@ -69,7 +69,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            \Armincms\Contract\Nova\Tools\Menu::make(),
+        ];
     }
 
     /**
@@ -79,8 +81,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function resources()
     {
-        $namespace = 'Armincms\\Contract\\';
-        $directory = dirname(__DIR__); 
+        $namespace = 'Armincms\\Contract\\Nova\\';
+        $directory = dirname(__DIR__).DIRECTORY_SEPARATOR.'Nova'; 
 
         $resources = [];
 
