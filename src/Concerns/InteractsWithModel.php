@@ -68,7 +68,7 @@ trait InteractsWithModel
     public function newQuery($request)
     {
         return $this->newModel()->newQuery()->tap(function($query) use ($request) {
-            $this->applyQuery($request, $query);
+            return $this->applyQuery($request, $query);
         }); 
     }
 
