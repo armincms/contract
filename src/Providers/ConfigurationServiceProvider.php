@@ -33,10 +33,13 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
      * @return void
      */
     public function setUncacheableConfigurations()
-    {
-        app('config')->set('nova-menu.locales', function() {
-            return (array) app("nova-targomaan.locales");
-        });   
+    {   
+        $this->app->booted(function() {
+            $locales = collect(app('application.locales'));
+
+            app('config')->set('nova-menu.locales', $locales->pluck('name', 'locale')->all());   
+            app('config')->set('gutenberg.locales', $locales->pluck('name', 'locale')->all());   
+        });
     }
 
     /**
@@ -76,12 +79,33 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
      */
     public function register()
     { 
+        $this->bindLocaleResolver();
+
         Str::macro('sluggable', function ($string, $separator) {
             $slug = mb_strtolower(
                 preg_replace('/([?]|\p{P}|\s)+/u', $separator, $string)
             );
 
             return trim($slug, $separator);
+        });
+    }
+
+    /**
+     * Bind locale resolver.
+     * 
+     * @return void
+     */
+    protected function bindLocaleResolver()
+    { 
+        $this->app->bind('application.locales', function() {
+            return [
+                [
+                    'name'      => 'Persian',
+                    'locale'    => 'fa',
+                    'default'   => true,
+                    'active'    => true,
+                ]
+            ];
         });
     }
 }
