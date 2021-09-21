@@ -29,8 +29,9 @@ trait InteractsWithFragments
     {
         return $this->fragments()->map(function($fragment) {
             return [
-                'name'  => $fragment->name,
-                'url'   => $fragment->getUrl($this->getUri()),
+                'name'      => $fragment->name,
+                'url'       => $fragment->getUrl($this->getUri()),
+                'website'   => $fragment->website->name,
             ];
         });
     }
