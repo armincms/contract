@@ -100,7 +100,17 @@ trait Fields
         return KeyValue::make($name, $attribute)
             ->keyLabel(__('Meta Key'))
             ->valueLabel(__('Meta Value'))
-            ->actionText(__('Add new meta'));
+            ->actionText(__('Add new meta'))
+            ->disableAddingRows()
+            ->disableDeletingRows()
+            ->disableEditingKeys()
+            ->default(function() {
+                return [
+                    'title' => '',
+                    'description' => '',
+                    'tags' => 'separate, your tags, by comma',
+                ];
+            });
     }
 
     /**
