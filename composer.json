@@ -5,6 +5,7 @@
     "license": "ARMINGROUP",
     "require": {  
         "armincms/conversion": "~0.2",
+        "armincms/papyrus": "~1.0",
         "benjacho/belongs-to-many-field": "~2.0",
         "cviebrock/eloquent-sluggable": "~8.0", 
         "dmitrybubyakin/nova-medialibrary-field": "~3.2",
