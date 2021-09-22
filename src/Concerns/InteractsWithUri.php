@@ -35,7 +35,7 @@ trait InteractsWithUri
      */
     public function ensureUriGenerated()
     {
-        ! is_null($this->getUri()) || $this->fillUri()->save();
+        ! empty($this->getUri()) || $this->fillUri()->save();
     }
 
     /**
@@ -61,7 +61,7 @@ trait InteractsWithUri
             return $generator($this);
         });
 
-        return (string) $parameters->implode('/');
+        return (string) $parameters->implode('/') ?: time();
     }
 
     /**
