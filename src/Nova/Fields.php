@@ -6,9 +6,11 @@ use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use DmitryBubyakin\NovaMedialibraryField\TransientModel;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Line;
 use Laravel\Nova\Fields\KeyValue;
+use Laravel\Nova\Fields\Stack; 
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Http\Requests\NovaRequest; 
 
 trait Fields  
 {   
@@ -99,6 +101,30 @@ trait Fields
             ->keyLabel(__('Meta Key'))
             ->valueLabel(__('Meta Value'))
             ->actionText(__('Add new meta'));
+    }
+
+    /**
+     * Create stack field to display resource urls for given fragment.
+     * 
+     * @param  string $fragment       
+     * @param  string $name       
+     * @return \Laravel\Nova\Fields\Field            
+     */
+    public function resourceUrls(string $name = 'Urls')
+    {  
+        $urls = $this->resource->getKey() ? $this->resource->urls() : [];
+
+        return Stack::make(__($name), collect($urls)->map(function($url) {
+            return Line::make($url['website'], function() use ($url) {
+                return "<a class='no-underline dim text-primary' href='".
+                        $url['url'].
+                        "' target='_blank'><sapn class=font-semibold>".
+                        $url['website'].
+                        "</sapn> <small>[".
+                        $url['name'].
+                        "]</small></a>";
+            })->asHtml(); 
+        })->all());
     }
 
     /**
