@@ -2,7 +2,12 @@
 
 namespace Armincms\Contract\Providers; 
 
+use Armincms\Contract\Cypress\Fragments\Page;
 use Armincms\Contract\Cypress\Home;
+use Armincms\Contract\Cypress\Widgets\Menu;
+use Armincms\Contract\Cypress\Widgets\SinglePage;
+use Armincms\Contract\Gutenberg\Templates\MenuItem;
+use Armincms\Contract\Gutenberg\Templates\Navbar;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Database\Schema\Blueprint;  
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
@@ -19,6 +24,20 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
     { 
         Gutenberg::components([
             Home::class,
+        ]);
+
+        Gutenberg::fragments([
+            Page::class,
+        ]); 
+
+        Gutenberg::widgets([
+            Menu::class,
+            SinglePage::class,
+        ]); 
+
+        Gutenberg::templates([ 
+            MenuItem::class,
+            Navbar::class,
         ]); 
     }
 
