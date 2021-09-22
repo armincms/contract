@@ -4,9 +4,13 @@ namespace Armincms\Contract\Providers;
 
 use Armincms\Contract\Models\Admin;
 use Armincms\Contract\Models\ExternalLink;
+use Armincms\Contract\Models\Page;
 use Armincms\Contract\Policies\AdminPolicy;
 use Armincms\Contract\Policies\ExternalLinkPolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider;  
+use Armincms\Contract\Policies\MenuPolicy;
+use Armincms\Contract\Policies\PagePolicy;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider; 
+use OptimistDigital\MenuBuilder\Models\Menu; 
 
 class AuthServiceProvider extends LaravelServiceProvider
 {
@@ -18,6 +22,8 @@ class AuthServiceProvider extends LaravelServiceProvider
     protected $policies = [
         Admin::class => AdminPolicy::class,
         ExternalLink::class => ExternalLinkPolicy::class,
+        Menu::class => MenuPolicy::class,
+        Page::class => PagePolicy::class,
     ];
 
     /**
