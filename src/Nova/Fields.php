@@ -128,7 +128,9 @@ trait Fields
             return Line::make($url['website'], function() use ($url) {
                 return "<a class='no-underline dim text-primary' href='".
                         $url['url'].
-                        "' target='_blank'><sapn class=font-semibold>".
+                        "' target='".
+                        static::uriKey().
+                        "'><sapn class=font-semibold>".
                         $url['website'].
                         "</sapn> <small>[".
                         $url['name'].
