@@ -69,7 +69,7 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
             }
         }
 
-        app('config')->set('nova-menu.menu_item_types', $menus);
+        app('config')->set('nova-menu.menu_item_types', array_unique($menus));
     }
 
     /**
