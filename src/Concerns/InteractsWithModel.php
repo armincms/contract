@@ -44,9 +44,11 @@ trait InteractsWithModel
      */
     public function resourceUri($request)
     {
-        $uriKey = $this->uriKey() ?: '/';
+        if ($this->fallback()) {
+            return trim($request->route('fragment'));
+        } 
 
-        return trim(Str::after($request->route('fragment'), $uriKey), '/'); 
+        return trim(Str::after($request->route('fragment'), $this->uriKey()), '/'); 
     }
 
     /**
