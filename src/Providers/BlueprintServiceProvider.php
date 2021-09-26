@@ -87,7 +87,8 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
         });
 
         Blueprint::macro('resourceUri', function(string $name = 'uri') {
-            return $this->tinyText($name)->nullable()->index(); 
+            // Text/Blob cannot be index by Mysql
+            return $this->string($name)->nullable()->index(); 
         });
 
         Blueprint::macro('resourceSummary', function(string $name = 'summary') {
