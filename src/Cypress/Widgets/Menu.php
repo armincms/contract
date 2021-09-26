@@ -96,7 +96,7 @@ class Menu extends Widget
     {
         return [
             Select::make(__('Target Menu'), 'config->menu')
-                ->options(MenuResource::newModel()->get()->keyBy->getKey->map->name)
+                ->options(MenuResource::newModel()->get()->keyBy->getKey()->map->name)
                 ->displayUsingLabels()
                 ->required()
                 ->rules('required'),
