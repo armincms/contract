@@ -16,7 +16,7 @@ class CreateExternalLinksTable extends Migration
        Schema::create('external_links', function (Blueprint $table) {
             $table->increments('id');
             $table->resourceName();
-            $table->resourceUri('address');  
+            $table->tinyText('address');  
             $table->auth();  
         }); 
     } 
