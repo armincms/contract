@@ -17,7 +17,7 @@ trait InteractsWithFragments
         $website = $request->resolveComponent()->website();
         $fragment = $website->fragments->firstWhere('fragment', $this->cypressFragment());
 
-        return $fragment->getUrl($this->getUri());
+        return $fragment ? $fragment->getUrl($this->getUri()) : null;
     }
 
     /**
