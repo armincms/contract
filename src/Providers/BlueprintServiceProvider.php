@@ -19,6 +19,7 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
         $this->markables();
         $this->multilinguals();
         $this->resources();
+        $this->configurables();
     }
 
     /**
@@ -120,6 +121,30 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
             $this->resourceContent();
             $this->resourceMeta();  
         }); 
+    }
+
+    /**
+     * Register any resource blueprints.
+     * 
+     * @return void
+     */
+    protected function configurables()
+    { 
+        Blueprint::macro('configuration', function(string $name = 'config') {
+            return $this->json($name)->nullable(); 
+        });
+
+        Blueprint::macro('dropConfiguration', function(string $name = 'config') {
+            return $this->dropColumn($name); 
+        });
+
+        Blueprint::macro('details', function(string $name = 'detail') {
+            return $this->configuration($name)->nullable(); 
+        });
+
+        Blueprint::macro('dropDetails', function(string $name = 'detail') {
+            return $this->dropConfiguration($name); 
+        });
     }
 
     /**
