@@ -75,9 +75,7 @@ trait InteractsWithMedia
     protected function registerConversions($drivers)
     { 
         collect($drivers)->each(function($driver) {
-            if (! app('conversion')->has($driver)) {
-                return;
-            }
+            $this->createDriverIfNotExists($driver);
 
             $schemas = app('conversion')->driver($driver)->schemas();
 
@@ -85,6 +83,25 @@ trait InteractsWithMedia
                 $this->registerMediaConversion("{$driver}-{$name}", (array) $schema);
             });
         });    
+    } 
+
+    /**
+     * Create new driver if not exists.
+     *  
+     * @param  string $driver 
+     * @return $this          
+     */
+    protected function createDriverIfNotExists(string $driver)
+    {
+        if (app('conversion')->has($driver)) {
+            return;
+        }
+
+        app('conversion')->extend($driver, function() {
+            return new \Armincms\Conversion\CommonConversion;
+        }); 
+
+        return $this;
     }
 
     /**
