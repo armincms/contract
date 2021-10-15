@@ -20,6 +20,10 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
         app('config')->set('app.locale', 'fa');
         app('config')->set('sluggable.source', 'name');
         app('config')->set('sluggable.method', [Str::class, 'sluggable']);
+        app('config')->set('nova-resource-manager.resources', [
+            'resource' => \Armincms\Contract\Nova\NovaResource::class,
+            'group' => \Armincms\Contract\Nova\NovaResourceGroup::class,
+        ]);
         $this->menus();
         
         if (! $this->app->runningInConsole()) {
