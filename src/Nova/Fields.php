@@ -2,9 +2,12 @@
 
 namespace Armincms\Contract\Nova; 
 
+use Amidesfahani\NovaPersianDate\NovaPersianDate;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use DmitryBubyakin\NovaMedialibraryField\TransientModel;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime; 
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Line;
 use Laravel\Nova\Fields\KeyValue;
@@ -14,6 +17,34 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait Fields  
 {   
+    /**
+     * Create new date field.
+     * 
+     * @param  string $name       
+     * @param  string $attribute 
+     * @return \Laravle\Nova\Fields\Field             
+     */
+    public function dateField(string $name, string $attribute = 'date')
+    {
+        return app()->getLocale() == 'fa' 
+            ? NovaPersianDate::make($name, $attribute)->type('date')
+            : Date::make($name, $attribute);
+    }
+
+    /**
+     * Create new datetime field.
+     * 
+     * @param  string $name       
+     * @param  string $attribute 
+     * @return \Laravle\Nova\Fields\Field             
+     */
+    public function datetimeField(string $name, string $attribute = 'date')
+    {
+        return app()->getLocale() == 'fa' 
+            ? NovaPersianDate::make($name, $attribute)->type('datetime')
+            : DateTime::make($name, $attribute);
+    }
+
     /**
      * Create new Medialibrary field.
      * 

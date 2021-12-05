@@ -4,6 +4,7 @@
     "keywords": [],
     "license": "ARMINGROUP",
     "require": {  
+        "amidesfahani/nova-persian-date": "^1.0",
         "armincms/conversion": "~0.2",
         "armincms/papyrus": "~1.0",
         "benjacho/belongs-to-many-field": "~2.0",
