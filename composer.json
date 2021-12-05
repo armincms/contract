@@ -15,7 +15,7 @@
         "optimistdigital/nova-menu-builder": "~6.0",
         "pishran/nova-rtl-theme": "~1.5",
         "spatie/laravel-medialibrary": "~9.7",
-        "zareismail/cypress": "dev-master",
+        "zareismail/cypress": "^1.0",
         "zareismail/gutenberg": "*",
         "zareismail/nova-policy": "~1.1",
         "zareismail/nova-resource-manager": "~0.3"
