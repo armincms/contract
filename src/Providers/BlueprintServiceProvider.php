@@ -20,6 +20,7 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
         $this->multilinguals();
         $this->resources();
         $this->configurables();
+        $this->other();
     }
 
     /**
@@ -145,6 +146,30 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
         Blueprint::macro('dropDetails', function(string $name = 'detail') {
             return $this->dropConfiguration($name); 
         });
+    }
+
+    /**
+     * Register any other blueprints.
+     * 
+     * @return void
+     */
+    protected function other()
+    { 
+        Blueprint::macro('price', function(string $name = 'price') {
+            return $this->double($name, 12, 4)->default(0.00); 
+        });
+
+        Blueprint::macro('dropPrice', function(string $name = 'price') {
+            return $this->dropColumn($name); 
+        }); 
+
+        Blueprint::macro('longPrice', function(string $name = 'price') {
+            return $this->double($name, 16, 4)->default(0.00); 
+        });
+
+        Blueprint::macro('dropLongPrice', function(string $name = 'price') {
+            return $this->dropColumn($name); 
+        }); 
     }
 
     /**
