@@ -2,7 +2,7 @@
     "name": "armincms/contract",
     "description": "Application contracts.",
     "keywords": [],
-    "license": "ARMINGROUP",
+    "license": "MIT",
     "require": {  
         "amidesfahani/nova-persian-date": "^1.0",
         "armincms/conversion": "~0.2",
