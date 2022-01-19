@@ -18,7 +18,6 @@ class User extends Authenticatable
     use HasProfile;
     use InteractsWithMetadatas;
     use Notifiable;
-    use
 
     /**
      * The attributes that are mass assignable.
