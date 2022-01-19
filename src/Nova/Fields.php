@@ -6,6 +6,7 @@ use Amidesfahani\NovaPersianDate\NovaPersianDate;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use DmitryBubyakin\NovaMedialibraryField\TransientModel;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime; 
 use Laravel\Nova\Fields\Image;
@@ -17,6 +18,20 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 trait Fields  
 {   
+    /**
+     * Create new currency field.
+     * 
+     * @param  string $name       
+     * @param  string $attribute 
+     * @return \Laravle\Nova\Fields\Field             
+     */
+    public function currencyField(string $name, string $attribute = 'price')
+    {
+        return tap(Currency::make($name, $attribute), function($field) {
+
+        });
+    }
+
     /**
      * Create new date field.
      * 
