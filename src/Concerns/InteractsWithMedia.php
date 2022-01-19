@@ -164,16 +164,42 @@ trait InteractsWithMedia
     /**
      * Get the lista of schemas.
      * 
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
     public function schemas()
     {
-        return collect($this->getMediaCollections())->flatten()->flatMap(function($driver) {
-            if (! app('conversion')->has($driver)) {
-                return [];
-            }
+        return collect($this->getMediaCollections())->flatMap(function($collection) {
+            $drivers = $collection['conversions'] ?? ['common'];
 
-            return app('conversion')->driver($driver)->schemas();
+            return collect($drivers)->flatMap(function($driver) { 
+                if (! app('conversion')->has($driver)) {
+                    return [];
+                } 
+ 
+                return app('conversion')->driver($driver)->schemas(); 
+            });
+        });
+    }
+
+    /**
+     * Get the lista of conversions.
+     * 
+     * @return \Illuminate\Support\Collection
+     */
+    public function conversions()
+    {
+        return collect($this->getMediaCollections())->flatMap(function($collection) {
+            $drivers = $collection['conversions'] ?? ['common'];
+
+            return collect($drivers)->flatMap(function($driver) { 
+                $this->createDriverIfNotExists($driver);
+
+                $schemas = app('conversion')->driver($driver)->schemas();
+
+                return collect($schemas)->keys()->map(function($schema) use ($driver) {
+                    return "{$driver}-{$schema}";
+                });
+            });
         });
     }
 
