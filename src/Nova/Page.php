@@ -9,6 +9,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Page extends Resource
 {      
+    use Localization;
+    
     /**
      * The model the resource corresponds to.
      *

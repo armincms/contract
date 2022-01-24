@@ -14,6 +14,7 @@ use OptimistDigital\MenuBuilder\Nova\Fields\MenuBuilderField;
 class Menu extends Resource
 {  
     use Authorizable; 
+    use Localization;
 
     /**
      * The model the resource corresponds to.

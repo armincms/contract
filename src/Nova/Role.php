@@ -9,6 +9,8 @@ use Zareismail\NovaPolicy\Nova\Role as Resource;
 
 class Role extends Resource
 { 
+    use Localization;
+    
     /**
      * The logical group associated with the resource.
      *

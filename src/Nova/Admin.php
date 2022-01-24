@@ -14,6 +14,8 @@ use Zareismail\NovaPolicy\Nova\Permission;
 
 class Admin extends Resource
 { 
+    use Localization;
+    
     /**
      * The logical group associated with the resource.
      *
