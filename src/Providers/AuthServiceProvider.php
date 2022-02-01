@@ -5,6 +5,7 @@ namespace Armincms\Contract\Providers;
 use Armincms\Contract\Models\Admin;
 use Armincms\Contract\Models\ExternalLink;
 use Armincms\Contract\Models\Page;
+use Armincms\Contract\Models\User;
 use Armincms\Contract\Policies\AdminPolicy;
 use Armincms\Contract\Policies\ExternalLinkPolicy;
 use Armincms\Contract\Policies\MenuPolicy;
@@ -50,5 +51,6 @@ class AuthServiceProvider extends LaravelServiceProvider
         app('config')->set('auth.providers.admins.model', Admin::class);
         app('config')->set('auth.passwords.admins.provider', 'admins');
         app('config')->set('auth.guards.admin.provider', 'admins'); 
+        app('config')->set('auth.providers.users.model', User::class);
     }
 }
