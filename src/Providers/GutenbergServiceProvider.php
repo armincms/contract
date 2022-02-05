@@ -2,6 +2,7 @@
 
 namespace Armincms\Contract\Providers; 
 
+use Armincms\Contract\Cypress\Fragments\Blank;
 use Armincms\Contract\Cypress\Fragments\Page;
 use Armincms\Contract\Cypress\Home;
 use Armincms\Contract\Cypress\Widgets\Html;
@@ -28,6 +29,7 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
         ]);
 
         Gutenberg::fragments([
+            Blank::class,
             Page::class,
         ]); 
 
