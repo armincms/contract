@@ -15,9 +15,9 @@ class Navbar extends Template
     public static function variables(): array
     {
         return [  
-            variable::make('name', __('Menu Name')),
+            Variable::make('name', __('Menu Name')),
 
-            variable::make('items', __('Rendered Menu Items')), 
+            Variable::make('items', __('Rendered Menu Items')), 
         ];
     } 
 }
