@@ -25,6 +25,7 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
             'group' => \Armincms\Contract\Nova\NovaResourceGroup::class,
         ]);
         $this->menus();
+        $this->options();
         
         if (! $this->app->runningInConsole()) {
             $this->setUncacheableConfigurations(); 
@@ -74,6 +75,16 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
         }
 
         app('config')->set('nova-menu.menu_item_types', array_unique($menus));
+    }
+
+    /**
+     * Register the application's options.
+     *
+     * @return void
+     */
+    protected function options()
+    { 
+        $this->mergeConfigFrom(dirname(dirname(dirname(__FILE__))).'/config/option.php', 'option'); 
     }
 
     /**
