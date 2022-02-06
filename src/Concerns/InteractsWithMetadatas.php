@@ -55,7 +55,7 @@ trait InteractsWithMetadatas
      */
     public function updateMetadatas(array $metadatas)
     { 
-        $metadatas = Arr::isAssoc($metadatas) ? $metadatas : [$metadatas]; 
+        $metadatas = empty($metadatas) || Arr::isAssoc($metadatas) ? (array) $metadatas : [$metadatas]; 
         $metadataModel = $this->getMetadataModel();
 
         $metadataModel::unguarded(function() use ($metadatas) {
