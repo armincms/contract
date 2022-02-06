@@ -3,14 +3,15 @@
 namespace Armincms\Contract\Models;
 
 use Armincms\Contract\Concerns\InteractsWithMetadatas;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; 
 use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
     use InteractsWithPolicy;
     use HasApiTokens;
@@ -18,6 +19,7 @@ class User extends Authenticatable
     use HasProfile;
     use InteractsWithMetadatas;
     use Notifiable;
+    use MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
