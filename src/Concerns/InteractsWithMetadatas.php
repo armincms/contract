@@ -188,6 +188,32 @@ trait InteractsWithMetadatas
     }
 
     /**
+     * Get the fillable attributes of a given array.
+     *
+     * @param  array  $attributes
+     * @return array
+     */
+    protected function fillableFromArray(array $attributes)
+    {
+        $metadatas = collect($attributes)->filter(function($attribute, $key) {
+            return $this->isMetadataAttribute($key);
+        });
+
+        return $metadatas->merge(parent::fillableFromArray($attributes))->toArray();
+    }
+
+    /**
+     * Determine if the given attribute may be mass assigned.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function isFillable($key)
+    {
+        return $this->isMetadataAttribute($key) || parent::isFillable($key);
+    }
+
+    /**
      * Determin if given key should be store in metadata.
      * 
      * @param  string  $key
