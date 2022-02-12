@@ -10,6 +10,7 @@ use Armincms\Contract\Cypress\Widgets\Menu;
 use Armincms\Contract\Cypress\Widgets\SinglePage;
 use Armincms\Contract\Gutenberg\Templates\MenuItem;
 use Armincms\Contract\Gutenberg\Templates\Navbar;
+use Armincms\Contract\Gutenberg\Templates\Pagination;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Database\Schema\Blueprint;  
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
@@ -42,6 +43,7 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
         Gutenberg::templates([ 
             MenuItem::class,
             Navbar::class,
+            Pagination::class,
         ]); 
     }
 
