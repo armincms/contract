@@ -101,6 +101,10 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
             return $this->integer('hits')->unsigned()->default(0); 
         });
 
+        Blueprint::macro('dropResourceHits', function(string $name = 'hits') {
+            return $this->dropColumn([$name]); 
+        });
+
         Blueprint::macro('resourceContent', function(string $name = 'content') {
             return $this->longText('content')->nullable(); 
         });
