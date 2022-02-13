@@ -1,6 +1,6 @@
 <?php
 
-namespace Armincms\Contract\Gutenberg\Templates; 
+namespace Armincms\Contract\Gutenberg\Widgets; 
 
 use Zareismail\Gutenberg\Template; 
 use Zareismail\Gutenberg\Variable;
