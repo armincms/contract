@@ -6,7 +6,14 @@ use Zareismail\Gutenberg\Template;
 use Zareismail\Gutenberg\Variable;
 
 class Navbar extends Template 
-{       
+{    
+     /**
+     * The logical group associated with the template.
+     *
+     * @var string
+     */
+    public static $group = 'Menu';
+       
     /**
      * Register the given variables.
      * 

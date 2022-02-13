@@ -7,6 +7,13 @@ use Zareismail\Gutenberg\Variable;
 
 class MenuItem extends Template 
 {       
+     /**
+     * The logical group associated with the template.
+     *
+     * @var string
+     */
+    public static $group = 'Menu';
+
     /**
      * Register the given variables.
      * 
