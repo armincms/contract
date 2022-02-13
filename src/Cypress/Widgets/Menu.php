@@ -2,18 +2,22 @@
 
 namespace Armincms\Contract\Cypress\Widgets;
 
-use Armincms\Contract\Gutenberg\Templates\MenuItem;
-use Armincms\Contract\Gutenberg\Templates\Navbar;
+use Armincms\Contract\Gutenberg\Templates\MenuItem;  
+use Armincms\Contract\Gutenberg\Widgets\BootstrapsTemplate;  
+use Armincms\Contract\Gutenberg\Widgets\ResolvesDisplay;  
 use Armincms\Contract\Nova\Menu as MenuResource;
-use Laravel\Nova\Fields\Select;
-use Zareismail\Cypress\Widget;  
-use Zareismail\Cypress\Http\Requests\CypressRequest; 
-use Zareismail\Gutenberg\HasTemplate;
+use Laravel\Nova\Fields\Select; 
 use OptimistDigital\MenuBuilder\MenuBuilder;
+use Zareismail\Cypress\Http\Requests\CypressRequest; 
+use Zareismail\Gutenberg\Gutenberg;
+use Zareismail\Gutenberg\GutenbergWidget;
 
-class Menu extends Widget
-{       
-    use HasTemplate;
+class Menu extends GutenbergWidget
+{        
+    use BootstrapsTemplate;  
+    use ResolvesDisplay {
+        displayResource as parentDisplayResource;
+    }
 
     /**
      * Bootstrap the resource for the given request.
@@ -24,35 +28,32 @@ class Menu extends Widget
      */
     public function boot(CypressRequest $request, $layout)
     {    
-    	$this->when($this->hasMeta('template'), function() use ($request, $layout) { 
-	        $this->bootstrapTemplate($request, $layout);  
-	        $menuClass = MenuBuilder::getMenuClass();
-	        $menu = $menuClass::findOrFail($this->metaValue('menu'));
+        parent::boot($request, $layout);
 
-	        $this->withMeta([
-	        	'menu' => $menu->formatForAPI(app()->getLocale()),
-	        ]);
-    	}, function() {
-    		$this->renderable(false);
-    	});
+    	$menuClass = MenuBuilder::getMenuClass();
+        $menu = $menuClass::findOrFail($this->metaValue('menu'));
+
+        $this->withMeta([
+            'menu' => $menu->formatForAPI(app()->getLocale()),
+        ]);
+
+        collect()->range(0, 4)->each(function($depth) use ($request, $layout) {
+            if ($templateKey = $this->metaValue("row.{$depth}")) { 
+                $template = $this->bootstrapTemplate($request, $layout, $templateKey);
+
+                $this->displayResourceUsing(function($attributes) use ($template) {
+                    return $template->gutenbergTemplate($attributes)->render();
+                }, $depth);
+            } 
+        });
     }
-
-    /**
-     * Get the template id.
-     * 
-     * @return integer
-     */
-    public function getTemplateId(): int
-    {
-        return $this->metaValue('template.navbar');
-    } 
 
     /**
      * Serialize the widget fro template.
      * 
      * @return array
      */
-    public function serializeForTemplate(): array
+    public function serializeForDisplay(): array
     {  
         $html = collect($this->metaValue('menu.menuItems'))->reduce(function($htmls, $item) {
             return $htmls . $this->renderItem($item, 0);
@@ -64,26 +65,27 @@ class Menu extends Widget
         ];
     }
 
-    public function renderItem($item, $depth, $template = null)
+    /**
+     * Renders menu items.
+     * 
+     * @param  string $item  
+     * @param  string $depth 
+     * @return string        
+     */
+    public function renderItem($item, $depth)
     {   
-        if ($templateId = intval(data_get($item, 'data.tempalte'))) { 
-            $template = $this->findTemplate($templateId);
-        } elseif ($templateId = intval($this->metaValue("template.row.{$depth}"))) {
-            $template = $this->findTemplate($templateId);
-        } 
-
-        $childrens = collect($item['children'])->reduce(function($htmls, $item) use ($depth, $template) {
-            return $htmls . $this->renderItem($item, $depth + 1, $template);            
+        $childrens = collect($item['children'])->reduce(function($htmls, $item) use ($depth) {
+            return $htmls . $this->renderItem($item, $depth + 1);            
         }); 
 
-        $data = array_merge($item, [
+        $attributes = array_merge($item, [
             'url' => $item['value'] ?? '#!',
             'childrens' => $childrens, 
             'hasChildren' => ! empty($childrens),
             'depth' => $depth, 
         ]);
 
-        return $template->gutenbergTemplate($data)->render();
+        return $this->displayResource($attributes, $depth);
     }
 
     /**
@@ -94,6 +96,11 @@ class Menu extends Widget
      */
     public static function fields($request)
     {
+        $menuItemTemplates = Gutenberg::cachedTemplates()
+            ->forHandler(MenuItem::class)
+            ->keyBy->getKey()
+            ->map->name;
+
         return [
             Select::make(__('Target Menu'), 'config->menu')
                 ->options(MenuResource::newModel()->get()->keyBy->getKey()->map->name)
@@ -101,37 +108,59 @@ class Menu extends Widget
                 ->required()
                 ->rules('required'),
 
-            Select::make(__('Navbar Template'), 'config->template->navbar')
-                ->options(static::availableTemplates(Navbar::class))
+            Select::make(__('Navbar Item Template'), 'config->row->0')
+                ->options($menuItemTemplates)
                 ->displayUsingLabels()
                 ->required()
                 ->rules('required'),
 
-            Select::make(__('Navbar Item Template'), 'config->template->row->0')
-                ->options(static::availableTemplates(MenuItem::class))
-                ->displayUsingLabels()
-                ->required()
-                ->rules('required'),
-
-            Select::make(__('Depth [1] Template'), 'config->template->row->1')
-                ->options(static::availableTemplates(MenuItem::class))
+            Select::make(__('Depth [1] Template'), 'config->row->1')
+                ->options($menuItemTemplates)
                 ->displayUsingLabels()
                 ->nullable(),
 
-            Select::make(__('Depth [2] Template'), 'config->template->row->2')
-                ->options(static::availableTemplates(MenuItem::class))
+            Select::make(__('Depth [2] Template'), 'config->row->2')
+                ->options($menuItemTemplates)
                 ->displayUsingLabels()
                 ->nullable(),
 
-            Select::make(__('Depth [3] Template'), 'config->template->row->3')
-                ->options(static::availableTemplates(MenuItem::class))
+            Select::make(__('Depth [3] Template'), 'config->row->3')
+                ->options($menuItemTemplates)
                 ->displayUsingLabels()
                 ->nullable(),
 
-            Select::make(__('Depth [4] Template'), 'config->template->row->4')
-                ->options(static::availableTemplates(MenuItem::class))
+            Select::make(__('Depth [4] Template'), 'config->row->4')
+                ->options($menuItemTemplates)
                 ->displayUsingLabels()
                 ->nullable(),
         ];
+    }
+
+    /**
+     * Query related display templates.
+     * 
+     * @return string
+     */
+    public static function relatableTemplates($request, $query)
+    {
+        return $query->handledBy(
+            \Armincms\Contract\Gutenberg\Templates\Navbar::class
+        );
+    } 
+
+    /**
+     * Display resource for the given attributes.
+     * 
+     * @param  array $attributes 
+     * @param  string $resource   
+     * @return string             
+     */
+    public function displayResource(array $attributes, string $resource = null)
+    { 
+        $html = $this->parentDisplayResource($attributes, $resource);
+
+        return is_numeric($resource) && $resource && ! $html 
+            ? $this->parentDisplayResource($attributes, $resource - 1)
+            : $html;
     }
 }
