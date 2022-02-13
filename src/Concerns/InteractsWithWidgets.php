@@ -12,7 +12,7 @@ trait InteractsWithWidgets
      * @param Zareismail\Cypress\Request\CypressRequest
      * @return array
      */
-    public function serializeForWidget($request, $detail = ture): array
+    public function serializeForWidget($request, $detail = true): array
     {
         return $detail 
             ? $this->serializeForDetailWidget($request) 
