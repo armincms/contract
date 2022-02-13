@@ -2,22 +2,17 @@
 
 namespace Armincms\Contract\Cypress\Widgets;
  
-use Laravel\Nova\Fields\Code; 
-use Zareismail\Cypress\Http\Requests\CypressRequest;   
+use Laravel\Nova\Fields\Code;  
 use Zareismail\Gutenberg\GutenbergWidget;   
 
 class Html extends GutenbergWidget
 {        
     /**
-     * Bootstrap the resource for the given request.
-     * 
-     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest $request 
-     * @param  \Zareismail\Cypress\Layout $layout 
-     * @return void                  
+     * The logical group associated with the template.
+     *
+     * @var string
      */
-    public function boot(CypressRequest $request, $layout)
-    {     
-    }  
+    public static $group = 'Html';
 
     /**
      * Get the fields displayed by the resource.
