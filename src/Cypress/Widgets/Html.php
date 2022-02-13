@@ -3,10 +3,10 @@
 namespace Armincms\Contract\Cypress\Widgets;
  
 use Laravel\Nova\Fields\Code; 
-use Zareismail\Cypress\Http\Requests\CypressRequest; 
-use Zareismail\Cypress\Widget;   
+use Zareismail\Cypress\Http\Requests\CypressRequest;   
+use Zareismail\Gutenberg\GutenbergWidget;   
 
-class Html extends Widget
+class Html extends GutenbergWidget
 {        
     /**
      * Bootstrap the resource for the given request.
