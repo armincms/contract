@@ -14,6 +14,7 @@ use Zareismail\NovaPolicy\Nova\Permission;
 
 class User extends Resource
 { 
+    use Fields;
     use Localization;
     
     /**
@@ -90,6 +91,8 @@ class User extends Resource
 
                 Text::make(__('Phone Number'), 'metadata::phone')
                     ->hideFromIndex(),
+
+                $this->medialibrary(__('User Avatar'), 'avatar'),
             ]),
         ];
     }

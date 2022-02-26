@@ -2,18 +2,23 @@
 
 namespace Armincms\Contract\Models;
 
+use Armincms\Contract\Concerns\InteractsWithMedia;
 use Armincms\Contract\Concerns\InteractsWithMetadatas;
+use Armincms\Contract\Concerns\InteractsWithWidgets;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens; 
+use Spatie\MediaLibrary\HasMedia;
 use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
 {
+    use InteractsWithMedia;
     use InteractsWithPolicy;
+    use InteractsWithWidgets;
     use HasApiTokens;
     use HasFactory;
     use HasProfile;
@@ -52,6 +57,25 @@ class User extends Authenticatable implements MustVerifyEmailContract
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [ 
+        'avatar'
+    ];
+
+    /**
+     * Get the user avatar image.
+     * 
+     * @return array
+     */
+    public function getAvatarAttribute()
+    {
+        return $this->getFirstMediasWithConversions()->get('avatar');
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
@@ -74,5 +98,34 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function getProfileAttribute()
     {
         return $this->getMetadataAttributes();
+    }
+
+    /**
+     * Get the available media collections.
+     * 
+     * @return array
+     */
+    public function getMediaCollections(): array
+    {
+        return [
+            'avatar' => [
+                'conversions' => ['common'],
+                'multiple'  => false,
+                'disk'      => 'image',
+                'limit'     => 20, // count of images
+                'accepts'   => ['image/jpeg', 'image/jpg', 'image/png'],
+            ],
+        ];
+    }
+
+    /**
+     * Serialize the model to pass into the client view.
+     *
+     * @param Zareismail\Cypress\Request\CypressRequest
+     * @return array
+     */
+    public function serializeForWidget($request, $detail = true): array
+    {
+        return array_merge(parent::toArray(), $this->profile->toArray());
     }
 }
