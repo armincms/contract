@@ -14,12 +14,12 @@ trait InteractsWithMedia
     public function getMediasWithConversions()
     {
         return collect($this->getMediaCollections())->map(function($collection, $name) {
-            return $this->getMedia($name)->map(function($media) use ($name) {
-                $conversions = $media->getGeneratedConversions();
+            return $this->getMedia($name)->map(function($media) use ($name) { 
+                $callback = function($value, $conversion) use ($name, $media) { 
+                    return $media->getFirstMediaUrl($name, $conversion);
+                };
 
-                return collect($conversions)->map(function($value, $conversion) use ($name) { 
-                    return $this->getFirstMediaUrl($name, $conversion);
-                });
+                return collect($media->getGeneratedConversions())->map($callback);
             });
         });
     }
@@ -36,9 +36,11 @@ trait InteractsWithMedia
                 return [];
             }
 
-            return collect($media->getGeneratedConversions())->map(function($value, $conversion) use ($name) { 
-                return $this->getFirstMediaUrl($name, $conversion);
-            });
+            $callback = function($value, $conversion) use ($name, $media) { 
+                return $media->getFirstMediaUrl($name, $conversion);
+            };
+
+            return collect($media->getGeneratedConversions())->map($callback);
         });
     }
 
