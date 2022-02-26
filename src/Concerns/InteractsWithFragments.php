@@ -5,7 +5,27 @@ namespace Armincms\Contract\Concerns;
 use Zareismail\Gutenberg\Gutenberg;
  
 trait InteractsWithFragments  
-{   
+{    
+    /**
+     * Append urls into attributes.
+     *  
+     * @return void       
+     */
+    public function initializeInteractsWithFragments()
+    {
+        $this->append('urls');
+    }
+
+    /**
+     * Get url's as attribute.
+     * 
+     * @return array
+     */
+    public function getUrlsAttribute()
+    {
+        return $this->urls();
+    }
+
     /**
      * Get the url for the given request.
      * 
@@ -13,11 +33,25 @@ trait InteractsWithFragments
      * @return string         
      */
     public function getUrl($request)
-    { 
-        $website = $request->resolveComponent()->website();
-        $fragment = $website->fragments->firstWhere('fragment', $this->cypressFragment());
+    {  
+        return once(function() use ($request) { 
+            return optional($this->searchFragment($request))->getUrl($this->getUri()); 
+        });
+    }
 
-        return $fragment ? $fragment->getUrl($this->getUri()) : null;
+    /**
+     * Find fragment for given request.
+     * 
+     * @param  \Illuminate\Http\Request $request 
+     * @return \Illuminate\Database\Eloquent\Model|null        
+     */
+    public function searchFragment($request)
+    {
+        $fragments = Gutenberg::cachedFragments()->forHandler($this->cypressFragment());
+        $website = $request->resolveComponent()->website();
+
+        return $fragments->firstWhere('website_id', $website->getKey()) 
+            ?: $fragments->first(); 
     }
 
     /**
