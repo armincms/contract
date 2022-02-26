@@ -13,6 +13,8 @@ trait InteractsWithMedia
      */
     public function getMediasWithConversions()
     {
+        $this->registerAllMediaConversions();
+
         return collect($this->getMediaCollections())->map(function($collection, $name) {
             return $this->getMedia($name)->map(function($media) use ($name) { 
                 $callback = function($value, $conversion) use ($name, $media) { 
@@ -35,6 +37,8 @@ trait InteractsWithMedia
      */
     public function getFirstMediasWithConversions()
     {
+        $this->registerAllMediaConversions();
+        
         return collect($this->getMediaCollections())->map(function($collection, $name) {
             if (is_null($media = $this->getFirstMedia($name))) {
                 return [];
