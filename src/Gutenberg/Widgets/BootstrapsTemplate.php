@@ -17,10 +17,7 @@ trait BootstrapsTemplate
     public function bootstrapTemplate($request, $layout, $templateKey)
     {   
         return tap($this->resolveTemplate($templateKey), function($template) use ($request, $layout) { 
-            $template->plugins
-                ->filter->isActive()
-                ->flatMap->gutenbergPlugins()
-                ->each->boot($request, $layout);
+            $template->plugins->boot($request, $layout);
         }); 
     }
 
