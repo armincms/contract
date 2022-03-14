@@ -83,6 +83,8 @@ class Menu extends GutenbergWidget
             'childrens' => $childrens, 
             'hasChildren' => ! empty($childrens),
             'depth' => $depth, 
+            'active' => trim(request()->path(), '/') == trim(data_get($item, 'value'), '/') ||
+                        request()->url() == data_get($item, 'value'),
         ]);
 
         return $this->displayResource($attributes, $depth);
