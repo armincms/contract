@@ -67,7 +67,7 @@ class Page extends MenuItemType
      **/
 	public static function buildIndexQuery($query, $locale)
 	{ 
-		return $query->hasLocale((array) $locale)->authorize();
+		return $query->hasLocale((array) $locale);
 	}
 
 	/**
