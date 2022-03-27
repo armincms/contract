@@ -15,6 +15,7 @@ class ServiceProvider extends AggregateServiceProvider
         Providers\AuthServiceProvider::class,
         Providers\BlueprintServiceProvider::class,
         Providers\ConfigurationServiceProvider::class,
+        Providers\EventServiceProvider::class,
         Providers\GutenbergServiceProvider::class,
         Providers\MediaServiceProvider::class,
         Providers\NovaServiceProvider::class,

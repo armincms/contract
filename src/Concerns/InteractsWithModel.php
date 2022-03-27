@@ -1,8 +1,9 @@
 <?php
 
 namespace Armincms\Contract\Concerns;
-
-use Armincms\Contract\Contracts\Hitsable;
+ 
+use Armincms\Contract\Contracts\HasMeta;
+use Armincms\Contract\Contracts\Hitsable; 
 use Illuminate\Support\Str;
  
 trait InteractsWithModel  
@@ -30,6 +31,12 @@ trait InteractsWithModel
         if ($resource instanceof Hitsable) {
             $resource->viewed();
         }
+
+        if ($resource instanceof HasMeta) {
+            $this->withMeta([ 
+                'meta' => (array) $resource->meta
+            ]);
+        } 
 
         $this->withMeta(compact('resource'));
 
@@ -104,4 +111,44 @@ trait InteractsWithModel
     {
         return $query;
     } 
+
+    /**
+     * The resource title.
+     * 
+     * @return void
+     */
+    public function title()
+    {
+        return $this->metaValue('meta.title');        
+    }
+
+    /**
+     * The resource description.
+     * 
+     * @return void
+     */
+    public function description()
+    {
+        return $this->metaValue('meta.title');    
+    }
+
+    /**
+     * The resource author.
+     * 
+     * @return void
+     */
+    public function author()
+    { 
+        return $this->metaValue('meta.author');
+    }
+
+    /**
+     * The resource tags.
+     * 
+     * @return void
+     */
+    public function tags()
+    { 
+        return $this->metaValue('meta.title');
+    }
 }
