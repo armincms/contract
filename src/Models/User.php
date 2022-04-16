@@ -66,6 +66,18 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
     ];
 
     /**
+     * Perform any actions required after the model boots.
+     *
+     * @return void
+     */
+    protected static function booted()
+    { 
+        static::deleting(function($model) {
+            $model->metadatas()->delete();
+        });
+    }
+
+    /**
      * Get the user avatar image.
      * 
      * @return array
