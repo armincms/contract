@@ -11,7 +11,7 @@ trait Configurable
      */
     public function initializeConfigurable()
     {
-        $this->casts = array_merge(['configuration' => 'array'], (array) $this->casts); 
+        $this->casts = array_merge(['config' => 'array'], (array) $this->casts); 
     } 
 
     /**
@@ -24,7 +24,7 @@ trait Configurable
     public function config(string $key = null, $default = null)
     {
         return is_null($key)
-            ? $this->configuration
-            : data_get($this->configuration, $key, $default);
+            ? $this->config
+            : data_get($this->config, $key, $default);
     } 
 }
