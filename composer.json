@@ -3,14 +3,14 @@
     "description": "Application contracts.",
     "keywords": [],
     "license": "MIT",
-    "require": {  
+    "require": {
         "amidesfahani/nova-persian-date": "^1.0",
         "armincms/bios": "^0.3",
         "armincms/nova-translation": "^1.1",
         "armincms/conversion": "~0.2",
         "armincms/papyrus": "~1.0",
         "benjacho/belongs-to-many-field": "~2.0",
-        "cviebrock/eloquent-sluggable": "~8.0", 
+        "cviebrock/eloquent-sluggable": "~8.0",
         "dmitrybubyakin/nova-medialibrary-field": "~3.2",
         "gregoriohc/laravel-nova-theme-responsive": "~0.8",
         "infinety-es/nova-filemanager": "~2.5",
@@ -47,5 +47,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "version": "1.7.0"
+    "version": "1.8.0"
 }
