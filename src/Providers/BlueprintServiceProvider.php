@@ -174,6 +174,14 @@ class BlueprintServiceProvider extends LaravelServiceProvider implements Deferra
         Blueprint::macro('dropLongPrice', function(string $name = 'price') {
             return $this->dropColumn($name); 
         }); 
+
+        Blueprint::macro('currency', function(string $name = 'currency') {
+            return $this->string($name, 10)->default('IRR'); 
+        });
+
+        Blueprint::macro('dropCurrency', function(string $name = 'currency') {
+            return $this->dropColumn($name); 
+        }); 
     }
 
     /**
