@@ -1,10 +1,12 @@
 <?php
 
-namespace Armincms\Contract\Concerns; 
- 
-trait Sluggable  
-{ 
-    use \Cviebrock\EloquentSluggable\Sluggable;
+namespace Armincms\Contract\Concerns;
+
+trait Sluggable
+{
+    use \Cviebrock\EloquentSluggable\Sluggable {
+        scopeFindSimilarSlugs as scopeSimilarSlugs;
+    }
 
     /**
      * Return the sluggable configuration array for this model.
@@ -29,8 +31,10 @@ trait Sluggable
      */
     public function scopeFindSimilarSlugs($query, string $attribute, array $config, string $slug)
     {
-        if (method_exists($this, 'scopeHasLocale')) {
-            $query->hasLocale((array) $this->getLocale()); 
-        }
+        $query = call_user_func_array([$this, 'scopeSimilarSlugs'], func_get_args());
+
+        return $query->when(method_exists($this, 'scopeHasLocale'), function($query) {
+            $query->hasLocale((array) $this->getLocale());
+        });
     }
 }
