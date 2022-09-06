@@ -1,34 +1,34 @@
 <?php
 
 namespace Armincms\Contract\Concerns;
- 
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
- 
-trait InteractsWithMetadatas  
-{     
+
+trait InteractsWithMetadatas
+{
     /**
      * The metadata's model attributes.
      *
      * @var array
      */
-    private $metadataAttributes = [];  
+    private $metadataAttributes = [];
 
     /**
      * Bootstrap the traits.
      *
      * @return void
      */
-    public static function bootInteractsWithMetadatas() 
-    { 
-        static::saved(function($model) {    
+    public static function bootInteractsWithMetadatas()
+    {
+        static::saved(function ($model) {
             $model->updateMetadatas($model->getMetadataChanges());
         });
     }
 
     /**
      * Get metadata attribute changes.
-     * 
+     *
      * @return array
      */
     public function getMetadataChanges()
@@ -38,33 +38,33 @@ trait InteractsWithMetadatas
 
     /**
      * Determin if has a metadata for given key.
-     * 
+     *
      * @param  string  $key
-     * @return boolean     
+     * @return bool
      */
     public function hasMetadata($key)
     {
         return $this->getRelationValue('metadatas')->firstWhere('key', $key) ? true : false;
-    } 
+    }
 
     /**
      * Update metadatas for given associated array.
-     * 
-     * @param  array  $metadatas 
-     * @return $this            
+     *
+     * @param  array  $metadatas
+     * @return $this
      */
     public function updateMetadatas(array $metadatas)
-    { 
-        $metadatas = empty($metadatas) || Arr::isAssoc($metadatas) ? (array) $metadatas : [$metadatas]; 
+    {
+        $metadatas = empty($metadatas) || Arr::isAssoc($metadatas) ? (array) $metadatas : [$metadatas];
         $metadataModel = $this->getMetadataModel();
 
-        $metadataModel::unguarded(function() use ($metadatas) {
-            collect($metadatas)->each(function($value, $key) {
+        $metadataModel::unguarded(function () use ($metadatas) {
+            collect($metadatas)->each(function ($value, $key) {
                 $oldValue = $this->getMetadataAttributes()->get($key, new \stdClass());
 
                 $oldValue == $value ||
                 $this->metadatas()->updateOrCreate(compact('key'), compact('value'));
-            }); 
+            });
         });
 
         return $this;
@@ -72,7 +72,7 @@ trait InteractsWithMetadatas
 
     /**
      * Query related metadata
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOneOrMany
      */
     public function metadatas()
@@ -82,7 +82,7 @@ trait InteractsWithMetadatas
 
     /**
      * Get the realted metadata model.
-     * 
+     *
      * @return string
      */
     abstract public function getMetadataModel();
@@ -94,16 +94,16 @@ trait InteractsWithMetadatas
      * @return mixed
      */
     public function getAttribute($key)
-    {  
+    {
         if ($this->isMetadataAttribute($key)) {
             return $this->getMetadataAttribute($key);
-        }  
+        }
 
-        if(! is_null($value = parent::getAttribute($key)) || $key === $this->getKeyName()) {
+        if (! is_null($value = parent::getAttribute($key)) || $key === $this->getKeyName()) {
             return $value;
-        }  
+        }
 
-        return $this->getMetadataAttribute($key, $value);  
+        return $this->getMetadataAttribute($key, $value);
     }
 
     /**
@@ -113,12 +113,12 @@ trait InteractsWithMetadatas
      * @return array
      */
     public function getMetadataAttributes()
-    { 
+    {
         $metadatas = $this->getRelationValue('metadatas');
 
-        return collect($metadatas)->mapWithKeys(function($metadata) {
-            return [ 
-                $metadata->key => $this->transformModelValue($metadata->key, $metadata->value) 
+        return collect($metadatas)->mapWithKeys(function ($metadata) {
+            return [
+                $metadata->key => $this->transformModelValue($metadata->key, $metadata->value),
             ];
         });
     }
@@ -131,8 +131,8 @@ trait InteractsWithMetadatas
      */
     public function getMetadataAttribute($key, $default = null)
     {
-        $keyName = $this->parseMetadataAttribute($key); 
-        
+        $keyName = $this->parseMetadataAttribute($key);
+
         return $this->getMetadataAttributes()->get($keyName, $default);
     }
 
@@ -147,14 +147,14 @@ trait InteractsWithMetadatas
     {
         $keyName = $this->parseMetadataAttribute($key);
 
-        return tap(parent::setAttribute($keyName, $value), function() use ($key, $keyName) {
+        return tap(parent::setAttribute($keyName, $value), function () use ($key, $keyName) {
             if (! $this->isMetadataAttribute($key)) {
                 return;
-            }  
+            }
 
             $this->setMetadataAttribute($keyName, $this->attributes[$keyName]);
             unset($this->attributes[$keyName]);
-        }); 
+        });
     }
 
     /**
@@ -166,11 +166,11 @@ trait InteractsWithMetadatas
      */
     public function setMetadataAttribute($key, $value)
     {
-        $keyName = $this->parseMetadataAttribute($key); 
+        $keyName = $this->parseMetadataAttribute($key);
 
         $this->metadataAttributes[$keyName] = $value;
 
-        return $this; 
+        return $this;
     }
 
     /**
@@ -195,7 +195,7 @@ trait InteractsWithMetadatas
      */
     protected function fillableFromArray(array $attributes)
     {
-        $metadatas = collect($attributes)->filter(function($attribute, $key) {
+        $metadatas = collect($attributes)->filter(function ($attribute, $key) {
             return $this->isMetadataAttribute($key);
         });
 
@@ -215,9 +215,9 @@ trait InteractsWithMetadatas
 
     /**
      * Determin if given key should be store in metadata.
-     * 
+     *
      * @param  string  $key
-     * @return boolean     
+     * @return bool
      */
     public function isMetadataAttribute(string $key)
     {
@@ -226,12 +226,12 @@ trait InteractsWithMetadatas
 
     /**
      * Get key name of metadata attribute.
-     * 
-     * @param  string $key 
-     * @return string      
+     *
+     * @param  string  $key
+     * @return string
      */
     public function parseMetadataAttribute(string $key)
     {
-        return collect(explode('::', $key))->pop(); 
+        return collect(explode('::', $key))->pop();
     }
 }

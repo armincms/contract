@@ -1,6 +1,6 @@
 <?php
 
-namespace Armincms\Contract\Providers; 
+namespace Armincms\Contract\Providers;
 
 use Armincms\Contract\Cypress\Fragments\Blank;
 use Armincms\Contract\Cypress\Fragments\Page;
@@ -13,19 +13,18 @@ use Armincms\Contract\Gutenberg\Templates\MenuItem;
 use Armincms\Contract\Gutenberg\Templates\Navbar;
 use Armincms\Contract\Gutenberg\Templates\Pagination;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Database\Schema\Blueprint;  
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Zareismail\Gutenberg\Gutenberg;   
+use Zareismail\Gutenberg\Gutenberg;
 
 class GutenbergServiceProvider extends LaravelServiceProvider implements DeferrableProvider
-{   
+{
     /**
      * Register any application services.
      *
      * @return void
      */
     public function register()
-    { 
+    {
         Gutenberg::components([
             Home::class,
         ]);
@@ -33,20 +32,20 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
         Gutenberg::fragments([
             Blank::class,
             Page::class,
-        ]); 
+        ]);
 
         Gutenberg::widgets([
             BlankWidget::class,
             Html::class,
             Menu::class,
             SinglePage::class,
-        ]); 
+        ]);
 
-        Gutenberg::templates([ 
+        Gutenberg::templates([
             MenuItem::class,
             Navbar::class,
             Pagination::class,
-        ]); 
+        ]);
     }
 
     /**
@@ -57,7 +56,7 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
     public function provides()
     {
         return [];
-    } 
+    }
 
     /**
      * Get the events that trigger this service provider to register.
@@ -70,5 +69,5 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
             \Zareismail\Cypress\Events\ServingCypress::class,
             \Laravel\Nova\Events\ServingNova::class,
         ];
-    } 
+    }
 }

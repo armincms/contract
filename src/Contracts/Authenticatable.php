@@ -2,11 +2,11 @@
 
 namespace Armincms\Contract\Contracts;
 
-interface Authenticatable  
+interface Authenticatable
 {
     /**
      * Query the realted Authenticatable user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function auth();

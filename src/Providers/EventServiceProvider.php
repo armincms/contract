@@ -1,18 +1,18 @@
 <?php
 
-namespace Armincms\Contract\Providers; 
-  
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;   
+namespace Armincms\Contract\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
-{ 
+{
     /**
      * The event handler mappings for the application.
      *
      * @var array
      */
     protected $listen = [
-        \Zareismail\Cypress\Events\BootstrapingLayout::class => [ 
+        \Zareismail\Cypress\Events\BootstrapingLayout::class => [
             \Armincms\Contract\Listeners\BootstrapingLayout::class,
         ],
     ];
@@ -22,5 +22,5 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $subscribe = []; 
+    protected $subscribe = [];
 }

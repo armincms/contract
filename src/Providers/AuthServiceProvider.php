@@ -10,8 +10,8 @@ use Armincms\Contract\Policies\AdminPolicy;
 use Armincms\Contract\Policies\ExternalLinkPolicy;
 use Armincms\Contract\Policies\MenuPolicy;
 use Armincms\Contract\Policies\PagePolicy;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider; 
-use OptimistDigital\MenuBuilder\Models\Menu; 
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider;
+use OptimistDigital\MenuBuilder\Models\Menu;
 
 class AuthServiceProvider extends LaravelServiceProvider
 {
@@ -33,24 +33,24 @@ class AuthServiceProvider extends LaravelServiceProvider
      * @return void
      */
     public function boot()
-    {   
-        $this->configureAdminGuard(); 
+    {
+        $this->configureAdminGuard();
         $this->registerPolicies();
-    }  
+    }
 
     /**
      * Configure admin guard.
-     * 
+     *
      * @return void
      */
     public function configureAdminGuard()
-    { 
+    {
         app('config')->set('auth.guards.admin', config('auth.guards.web'));
         app('config')->set('auth.providers.admins', config('auth.providers.users'));
         app('config')->set('auth.passwords.admins', config('auth.passwords.users'));
         app('config')->set('auth.providers.admins.model', Admin::class);
         app('config')->set('auth.passwords.admins.provider', 'admins');
-        app('config')->set('auth.guards.admin.provider', 'admins'); 
+        app('config')->set('auth.guards.admin.provider', 'admins');
         app('config')->set('auth.providers.users.model', User::class);
     }
 }

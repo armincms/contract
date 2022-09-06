@@ -1,13 +1,13 @@
 <?php
 
-namespace Armincms\Contract\Gutenberg\Templates; 
+namespace Armincms\Contract\Gutenberg\Templates;
 
-use Zareismail\Gutenberg\Template; 
+use Zareismail\Gutenberg\Template;
 use Zareismail\Gutenberg\Variable;
 
-class MenuItem extends Template 
-{       
-     /**
+class MenuItem extends Template
+{
+    /**
      * The logical group associated with the template.
      *
      * @var string
@@ -16,12 +16,12 @@ class MenuItem extends Template
 
     /**
      * Register the given variables.
-     * 
+     *
      * @return array
      */
     public static function variables(): array
     {
-        return [ 
+        return [
             Variable::make('id', __('Menu item ID')),
 
             Variable::make('name', __('Menu item name')),
@@ -36,5 +36,5 @@ class MenuItem extends Template
 
             Variable::make('depth', __('Depth of the menu [starting from zero]')),
         ];
-    } 
+    }
 }

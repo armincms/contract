@@ -23,9 +23,9 @@ class BootstrapingLayout
      * @return void
      */
     public function handle($event)
-    { 
+    {
         $event->layout->prependPlugins([
             SmartMeta::make(),
-        ]); 
+        ]);
     }
 }

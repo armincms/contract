@@ -1,6 +1,6 @@
 <?php
 
-namespace Armincms\Contract\Nova; 
+namespace Armincms\Contract\Nova;
 
 use Armincms\Fields\Targomaan;
 use Illuminate\Support\Str;

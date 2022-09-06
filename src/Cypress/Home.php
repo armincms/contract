@@ -2,23 +2,22 @@
 
 namespace Armincms\Contract\Cypress;
 
-use Zareismail\Cypress\Component; 
+use Zareismail\Cypress\Component;
 use Zareismail\Cypress\Contracts\Resolvable;
-use Zareismail\Cypress\Http\Requests\CypressRequest;
 
 class Home extends Component implements Resolvable
-{    
+{
     /**
      * The display layout class name.
-     * 
+     *
      * @var string
-     */ 
+     */
     public $layout = \Zareismail\Cypress\Layouts\Clean::class;
-    
+
     /**
      * Resolve the resoruce's value for the given request.
      *
-     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request 
+     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
      * @return void
      */
     public function resolve($request): bool

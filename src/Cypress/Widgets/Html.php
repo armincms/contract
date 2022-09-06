@@ -1,12 +1,12 @@
 <?php
 
 namespace Armincms\Contract\Cypress\Widgets;
- 
-use Laravel\Nova\Fields\Code;  
-use Zareismail\Gutenberg\GutenbergWidget;   
+
+use Laravel\Nova\Fields\Code;
+use Zareismail\Gutenberg\GutenbergWidget;
 
 class Html extends GutenbergWidget
-{        
+{
     /**
      * The logical group associated with the template.
      *
@@ -23,9 +23,9 @@ class Html extends GutenbergWidget
     public static function fields($request)
     {
         return [
-            Code::make(__('HTML string'), 'config->html') 
+            Code::make(__('HTML string'), 'config->html')
                 ->required()
-                ->rules('required'), 
+                ->rules('required'),
         ];
     }
 
@@ -35,7 +35,7 @@ class Html extends GutenbergWidget
      * @return string
      */
     public function render()
-    { 
+    {
         return $this->metaValue('html');
     }
 }

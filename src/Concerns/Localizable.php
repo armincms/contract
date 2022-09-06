@@ -2,15 +2,13 @@
 
 namespace Armincms\Contract\Concerns;
 
-use Armincms\Contract\Casts\Url;
- 
-trait Localizable  
-{    
+trait Localizable
+{
     /**
      * Query where has the app locale.
-     * 
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder       
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeLocalize($query)
     {
@@ -19,15 +17,15 @@ trait Localizable
 
     /**
      * Query where has the given locales.
-     * 
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder       
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeHasLocale($query, array $locales)
     {
         return $query->whereIn($this->getQualifiedLocaleName(), $locales);
     }
- 
+
     /**
      * Get the table qualified locale name.
      *

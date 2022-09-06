@@ -1,22 +1,22 @@
 <?php
 
 namespace Armincms\Contract\Providers;
-     
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider;  
-use Illuminate\Support\Str; 
-use OptimistDigital\MenuBuilder\MenuItemTypes\BaseMenuItemType; 
-use ReflectionClass; 
-use Symfony\Component\Finder\Finder; 
+
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Illuminate\Support\Str;
+use OptimistDigital\MenuBuilder\MenuItemTypes\BaseMenuItemType;
+use ReflectionClass;
+use Symfony\Component\Finder\Finder;
 
 class ConfigurationServiceProvider extends LaravelServiceProvider
-{ 
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
     public function boot()
-    {    
+    {
         app('config')->set('app.locale', 'fa');
         app('config')->set('sluggable.source', 'name');
         app('config')->set('sluggable.method', [Str::class, 'sluggable']);
@@ -26,24 +26,24 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
         ]);
         $this->menus();
         $this->options();
-        
+
         if (! $this->app->runningInConsole()) {
-            $this->setUncacheableConfigurations(); 
+            $this->setUncacheableConfigurations();
         }
-    }  
+    }
 
     /**
      * Set configurations that could not be cached.
-     * 
+     *
      * @return void
      */
     public function setUncacheableConfigurations()
-    {   
-        $this->app->booted(function() {
+    {
+        $this->app->booted(function () {
             $locales = collect(app('application.locales'));
 
-            app('config')->set('nova-menu.locales', $locales->pluck('name', 'locale')->all());   
-            app('config')->set('gutenberg.locales', $locales->pluck('name', 'locale')->all());   
+            app('config')->set('nova-menu.locales', $locales->pluck('name', 'locale')->all());
+            app('config')->set('gutenberg.locales', $locales->pluck('name', 'locale')->all());
         });
     }
 
@@ -53,11 +53,11 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
      * @return void
      */
     protected function menus()
-    { 
+    {
         $this->mergeConfigFrom(dirname(dirname(dirname(__FILE__))).'/config/nova-menu.php', 'nova-menu');
 
         $namespace = 'Armincms\\Contract\\Menus\\';
-        $directory = dirname(__DIR__).DIRECTORY_SEPARATOR.'Menus'; 
+        $directory = dirname(__DIR__).DIRECTORY_SEPARATOR.'Menus';
 
         $menus = (array) config('nova-menu.menu_item_types');
 
@@ -66,7 +66,7 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
                 ['/', '.php'],
                 ['\\', ''],
                 Str::after($menu->getPathname(), $directory.DIRECTORY_SEPARATOR)
-            );  
+            );
 
             if (is_subclass_of($menu, BaseMenuItemType::class) &&
                 ! (new ReflectionClass($menu))->isAbstract()) {
@@ -83,8 +83,8 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
      * @return void
      */
     protected function options()
-    { 
-        $this->mergeConfigFrom(dirname(dirname(dirname(__FILE__))).'/config/option.php', 'option'); 
+    {
+        $this->mergeConfigFrom(dirname(dirname(dirname(__FILE__))).'/config/option.php', 'option');
     }
 
     /**
@@ -93,7 +93,7 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
      * @return void
      */
     public function register()
-    { 
+    {
         $this->bindLocaleResolver();
 
         Str::macro('sluggable', function ($string, $separator) {
@@ -107,19 +107,19 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
 
     /**
      * Bind locale resolver.
-     * 
+     *
      * @return void
      */
     protected function bindLocaleResolver()
-    { 
-        $this->app->bind('application.locales', function() {
+    {
+        $this->app->bind('application.locales', function () {
             return [
                 [
-                    'name'      => 'Persian',
-                    'locale'    => 'fa',
-                    'default'   => true,
-                    'active'    => true,
-                ]
+                    'name' => 'Persian',
+                    'locale' => 'fa',
+                    'default' => true,
+                    'active' => true,
+                ],
             ];
         });
     }

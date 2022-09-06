@@ -2,8 +2,8 @@
 
 namespace Armincms\Contract\Cypress\Fragments;
 
-use Zareismail\Cypress\Fragment;  
+use Zareismail\Cypress\Fragment;
 
 class Blank extends Fragment
-{         
+{
 }

@@ -3,14 +3,11 @@
 namespace Armincms\Contract\Nova;
 
 use Armincms\Papyrus\Nova\Resource;
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Http\Requests\NovaRequest; 
 
 class Page extends Resource
-{      
+{
     use Localization;
-    
+
     /**
      * The model the resource corresponds to.
      *

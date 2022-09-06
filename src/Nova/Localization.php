@@ -4,8 +4,8 @@ namespace Armincms\Contract\Nova;
 
 use Illuminate\Support\Str;
 
-trait Localization  
-{    
+trait Localization
+{
     /**
      * Get the displayable label of the resource.
      *

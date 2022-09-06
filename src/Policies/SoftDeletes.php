@@ -1,13 +1,12 @@
 <?php
 
-namespace Armincms\Contract\Policies;  
+namespace Armincms\Contract\Policies;
 
-use Illuminate\Contracts\Auth\Authenticatable;  
-use Illuminate\Database\Eloquent\Model;  
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 trait SoftDeletes
-{ 
-
+{
     /**
      * Determine whether the user can restore the admin.
      *
@@ -16,7 +15,7 @@ trait SoftDeletes
      * @return mixed
      */
     public function restore(Authenticatable $user, Model $model)
-    { 
+    {
     }
 
     /**
@@ -27,6 +26,6 @@ trait SoftDeletes
      * @return mixed
      */
     public function forceDelete(Authenticatable $user, Model $model)
-    { 
+    {
     }
 }

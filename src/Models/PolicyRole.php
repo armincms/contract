@@ -5,8 +5,8 @@ namespace Armincms\Contract\Models;
 use Zareismail\NovaPolicy\PolicyRole as Model;
 use Zareismail\NovaPolicy\PolicyUserRole;
 
-class PolicyRole extends Model 
-{   
+class PolicyRole extends Model
+{
     /**
      * Perform any actions required after the model boots.
      *
@@ -14,14 +14,14 @@ class PolicyRole extends Model
      */
     protected static function booted()
     {
-        static::deleting(function($model) {
+        static::deleting(function ($model) {
             $model->isForceDeleting() && $model->syncPermissions();
         });
     }
 
     /**
      * Query the related Permission`s.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
@@ -32,7 +32,7 @@ class PolicyRole extends Model
 
     /**
      * Query the related Permission`s.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function admins()

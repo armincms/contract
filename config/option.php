@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
 
     /*
@@ -30,17 +28,17 @@ return [
     |
     */
 
-    'stores' => [ 
+    'stores' => [
         'database' => [
-            'driver'     => 'database',
-            'table'      => 'options',
+            'driver' => 'database',
+            'table' => 'options',
             'connection' => null,
         ],
 
         'file' => [
-            'driver'      => 'file',
-            'path'        => storage_path('framework/option'),
+            'driver' => 'file',
+            'path' => storage_path('framework/option'),
             'single_file' => true,
-        ], 
-    ],  
+        ],
+    ],
 ];

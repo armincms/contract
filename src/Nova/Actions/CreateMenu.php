@@ -4,12 +4,11 @@ namespace Armincms\Contract\Nova\Actions;
 
 use Armincms\Contract\Nova\Menu;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Fields\Text;  
+use Laravel\Nova\Fields\Text;
 
 class CreateMenu extends Action
 {
@@ -35,8 +34,8 @@ class CreateMenu extends Action
             'push' => [
                 'name' => 'edit',
                 'params' => [
-                    'resourceName'  => Menu::uriKey(),
-                    'resourceId'    => $menu->getKey(),
+                    'resourceName' => Menu::uriKey(),
+                    'resourceId' => $menu->getKey(),
                 ],
             ],
         ];
@@ -49,7 +48,7 @@ class CreateMenu extends Action
      */
     public function fields()
     {
-        return [ 
+        return [
             Text::make(__('Menu Name'), 'name')
                 ->required()
                 ->rules('required'),

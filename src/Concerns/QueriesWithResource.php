@@ -2,39 +2,37 @@
 
 namespace Armincms\Contract\Concerns;
 
-use Armincms\Contract\Casts\Url;
- 
-trait QueriesWithResource  
-{    
+trait QueriesWithResource
+{
     /**
      * Handles booting model.
-     * 
+     *
      * @return void
      */
     public static function bootQueriesWithResource()
     {
-        static::addGlobalScope(function($query) {
-            return $query->when(static::resources(), function($query) {
+        static::addGlobalScope(function ($query) {
+            return $query->when(static::resources(), function ($query) {
                 return $query->resources(static::resources());
             });
         });
-    } 
+    }
 
     /**
      * Query with the given resource.
-     * 
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @param  string $code 
-     * @return \Illuminate\Database\Eloquent\Builder       
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string  $code
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeResources($query, $code)
-    { 
+    {
         return $query->whereIn($this->getQualifiedResourceColumn(), (array) $code);
     }
 
     /**
      * Get valid resources to query.
-     * 
+     *
      * @return array
      */
     public static function resources()
@@ -60,5 +58,5 @@ trait QueriesWithResource
     public function getQualifiedResourceColumn()
     {
         return $this->qualifyColumn($this->getResourceColumn());
-    }  
+    }
 }

@@ -1,16 +1,16 @@
 <?php
 
 namespace Armincms\Contract\Nova;
-  
+
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID; 
+use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest; 
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ExternalLink extends Resource
-{  
+{
     use Authorizable;
-    
+
     /**
      * The model the resource corresponds to.
      *
@@ -31,7 +31,7 @@ class ExternalLink extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name'
+        'id', 'name',
     ];
 
     /**
@@ -51,7 +51,7 @@ class ExternalLink extends Resource
 
             Text::make(__('External Link Address'), 'address')
                 ->required()
-                ->rules('required', 'url'), 
+                ->rules('required', 'url'),
         ];
     }
 

@@ -1,26 +1,26 @@
 <?php
 
 namespace Armincms\Contract\Providers;
-    
-use Illuminate\Support\Facades\Gate; 
-use Illuminate\Support\ServiceProvider as LaravelServiceProvider; 
-use Infinety\Filemanager\FilemanagerTool;
-use Laravel\Nova\Nova; ;
+
 use Armincms\Contract\Media\PathGenerator;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+use Infinety\Filemanager\FilemanagerTool;
+use Laravel\Nova\Nova;
 
 class MediaServiceProvider extends LaravelServiceProvider
 {
     /**
      * List of the storage disks.
-     * 
-     * @var 
+     *
+     * @var
      */
     protected $storageDisks = [
-        'image'     => 'images', 
-        'video'     => 'videos', 
-        'audio'     => 'audios', 
-        'document'  => 'documents', 
-        'file'      => 'other',
+        'image' => 'images',
+        'video' => 'videos',
+        'audio' => 'audios',
+        'document' => 'documents',
+        'file' => 'other',
     ];
 
     /**
@@ -29,43 +29,43 @@ class MediaServiceProvider extends LaravelServiceProvider
      * @return void
      */
     public function boot()
-    { 
+    {
         $this->storages();
         $this->spatie();
 
-        Gate::define('viewFileManager', function() {
+        Gate::define('viewFileManager', function () {
             return null;
         });
-        
-        Nova::serving(function() {
+
+        Nova::serving(function () {
             $this->servingNova();
         });
-    }  
+    }
 
     /**
      * regsiter any filesystem storages.
-     * 
+     *
      * @return void
      */
     public function storages()
     {
-        collect($this->storageDisks)->each(function($path, $name) { 
-            $this->app['config']->set("filesystems.disks.{$name}", [ 
+        collect($this->storageDisks)->each(function ($path, $name) {
+            $this->app['config']->set("filesystems.disks.{$name}", [
                 'driver' => 'local',
                 'root' => storage_path("app/public/{$path}"),
                 'url' => env('APP_URL').'/storage/'.$path,
                 'visibility' => 'public',
-            ]); 
+            ]);
         });
     }
 
     /**
      * Configure spatie media library.
-     * 
+     *
      * @return void
      */
     public function spatie()
-    { 
+    {
         $this->app['config']->set('media-library.path_generator', PathGenerator::class);
     }
 
@@ -77,7 +77,7 @@ class MediaServiceProvider extends LaravelServiceProvider
     protected function servingNova()
     {
         Nova::tools([
-            FilemanagerTool::make()->canSee(function($request) {
+            FilemanagerTool::make()->canSee(function ($request) {
                 return $request->user()->can('viewFileManager');
             }),
         ]);

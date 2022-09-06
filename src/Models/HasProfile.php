@@ -2,24 +2,22 @@
 
 namespace Armincms\Contract\Models;
 
-use Armincms\Papyrus\Models\PapyrusPage as Model;
-
-trait HasProfile 
-{ 
+trait HasProfile
+{
     /**
      * Get the fullname.
-     * 
-     * @return 
+     *
+     * @return
      */
     public function fullname()
     {
-        return $this->firstname() .PHP_EOL. $this->lastname();
+        return $this->firstname().PHP_EOL.$this->lastname();
     }
 
     /**
      * Get the firstname.
-     * 
-     * @return 
+     *
+     * @return
      */
     public function firstname()
     {
@@ -28,8 +26,8 @@ trait HasProfile
 
     /**
      * Get the lastname.
-     * 
-     * @return 
+     *
+     * @return
      */
     public function lastname()
     {

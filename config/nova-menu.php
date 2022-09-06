@@ -7,7 +7,6 @@ return [
     |------------------|
     */
 
-
     /*
     |--------------------------------------------------------------------------
     | Table names
@@ -16,7 +15,6 @@ return [
 
     'menus_table_name' => 'nova_menu_menus',
     'menu_items_table_name' => 'nova_menu_menu_items',
-
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +27,6 @@ return [
     */
 
     'locales' => ['en_US' => 'English'],
-
 
     /*
     |--------------------------------------------------------------------------
@@ -73,7 +70,6 @@ return [
     |--------------------------------|
     */
 
-
     /*
     |--------------------------------------------------------------------------
     | Resource
@@ -84,7 +80,6 @@ return [
     */
 
     'resource' => OptimistDigital\MenuBuilder\Nova\Resources\MenuResource::class,
-
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +92,6 @@ return [
 
     'menu_model' => OptimistDigital\MenuBuilder\Models\Menu::class,
 
-
     /*
     |--------------------------------------------------------------------------
     | MenuItem Model
@@ -109,7 +103,6 @@ return [
 
     'menu_item_model' => OptimistDigital\MenuBuilder\Models\MenuItem::class,
 
-
     /*
     |--------------------------------------------------------------------------
     | Auto-load migrations
@@ -120,6 +113,5 @@ return [
     */
 
     'auto_load_migrations' => true,
-
 
 ];

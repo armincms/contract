@@ -27,7 +27,7 @@ class ServiceProvider extends AggregateServiceProvider
      * @return void
      */
     public function boot()
-    {    
+    {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 }

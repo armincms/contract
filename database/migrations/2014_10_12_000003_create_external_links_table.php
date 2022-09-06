@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateExternalLinksTable extends Migration
 {
@@ -13,13 +13,13 @@ class CreateExternalLinksTable extends Migration
      */
     public function up()
     {
-       Schema::create('external_links', function (Blueprint $table) {
+        Schema::create('external_links', function (Blueprint $table) {
             $table->increments('id');
             $table->resourceName();
-            $table->tinyText('address');  
-            $table->auth();  
-        }); 
-    } 
+            $table->tinyText('address');
+            $table->auth();
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -28,6 +28,6 @@ class CreateExternalLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('external_links'); 
+        Schema::dropIfExists('external_links');
     }
 }

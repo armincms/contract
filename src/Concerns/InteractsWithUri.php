@@ -3,34 +3,34 @@
 namespace Armincms\Contract\Concerns;
 
 use Armincms\Contract\Casts\Url;
- 
-trait InteractsWithUri  
-{    
+
+trait InteractsWithUri
+{
     /**
      * Bootstrap the model instance.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static function bootInteractsWithUri()
     {
-        static::saved(function($model) {
+        static::saved(function ($model) {
             $model->ensureUriGenerated();
         });
-    } 
+    }
 
     /**
      * Initialize the model instance.
-     * 
-     * @return 
+     *
+     * @return
      */
     public function initializeInteractsWithUri()
     {
-        $this->casts = array_merge([$this->getUriName() => Url::class], (array) $this->casts); 
-    } 
+        $this->casts = array_merge([$this->getUriName() => Url::class], (array) $this->casts);
+    }
 
     /**
      * Fill teh uri column if not.
-     * 
+     *
      * @return void
      */
     public function ensureUriGenerated()
@@ -40,24 +40,24 @@ trait InteractsWithUri
 
     /**
      * Fill the uri with new string.
-     * 
+     *
      * @return this
      */
     public function fillUri()
     {
         return $this->forceFill([
-            $this->getUriName() => $this->generateUri()
+            $this->getUriName() => $this->generateUri(),
         ]);
     }
 
     /**
      * Generate new uri string.
-     * 
+     *
      * @return [type] [description]
      */
     public function generateUri()
     {
-        $parameters = collect($this->getUriGenerators())->map(function($generator) {
+        $parameters = collect($this->getUriGenerators())->map(function ($generator) {
             return $generator($this);
         });
 
@@ -66,21 +66,21 @@ trait InteractsWithUri
 
     /**
      * Get the url generator callbacks.
-     * 
+     *
      * @return array
      */
     public function getUriGenerators()
     {
         return [
-            function($model) {
+            function ($model) {
                 return $model->slug;
-            }
+            },
         ];
     }
 
     /**
      * Get the uri value.
-     * 
+     *
      * @return string
      */
     public function getUri()
@@ -95,9 +95,9 @@ trait InteractsWithUri
      *
      * @param  string  $uri
      * @param  array  $columns
-     * @return \Illuminate\Database\Eloquent\Model|static 
+     * @return \Illuminate\Database\Eloquent\Model|static
      */
-    public function findByUri($uri, $columns = ['*'])  
+    public function findByUri($uri, $columns = ['*'])
     {
         return $this->withUri(urlencode($uri))->first($columns);
     }
@@ -105,15 +105,15 @@ trait InteractsWithUri
     /**
      * Query where has the given uri string.
      *
-     * @param  string  $uri 
-     * @param \Illuminate\Database\Eloquent\Builder $query 
-     * @return \Illuminate\Database\Eloquent\Builder 
+     * @param  string  $uri
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeWithUri($query, $uri)
     {
         return $query->where($this->getQualifiedUriName(), urlencode($uri));
     }
- 
+
     /**
      * Get the table qualified uri name.
      *

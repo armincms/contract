@@ -2,21 +2,20 @@
 
 namespace Armincms\Contract\Nova;
 
-use Benjacho\BelongsToManyField\BelongsToManyField; 
+use Benjacho\BelongsToManyField\BelongsToManyField;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Zareismail\NovaPolicy\Nova\Permission;
 
 class User extends Resource
-{ 
+{
     use Fields;
     use Localization;
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -44,7 +43,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'email'
+        'id', 'email',
     ];
 
     /**

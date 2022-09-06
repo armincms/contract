@@ -3,17 +3,15 @@
 namespace Armincms\Contract\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Field;
-use Laravel\Nova\Fields\Hidden;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest; 
-use Laravel\Nova\Panel; 
-use OptimistDigital\MenuBuilder\Nova\Fields\MenuBuilderField; 
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Panel;
+use OptimistDigital\MenuBuilder\Nova\Fields\MenuBuilderField;
 
 class Menu extends Resource
-{  
-    use Authorizable; 
+{
+    use Authorizable;
     use Localization;
 
     /**
@@ -21,7 +19,7 @@ class Menu extends Resource
      *
      * @var string
      */
-    public static $model = \OptimistDigital\MenuBuilder\Models\Menu::class; 
+    public static $model = \OptimistDigital\MenuBuilder\Models\Menu::class;
 
     /**
      * Get the fields displayed by the resource.
@@ -30,21 +28,21 @@ class Menu extends Resource
      * @return array
      */
     public function fields(Request $request)
-    { 
+    {
         return [
-            ID::make(__('ID'), 'id')->sortable(), 
+            ID::make(__('ID'), 'id')->sortable(),
 
             Text::make(__('Menu Name'), 'name')
                 ->sortable()
                     ->required()
-                ->rules('required', 'max:255'), 
+                ->rules('required', 'max:255'),
 
             Panel::make(__('Menu Items'), [
-                MenuBuilderField::make(__('Menu Item'), 'menu_items')  
-                    ->onlyOnForms()  
+                MenuBuilderField::make(__('Menu Item'), 'menu_items')
+                    ->onlyOnForms()
                     ->maxDepth(10)
                     ->readonly(),
-            ])
+            ]),
         ];
     }
 
@@ -57,7 +55,7 @@ class Menu extends Resource
     public function actions(Request $request)
     {
         return [
-            Actions\CreateMenu::make()->standalone()->canSee(function($request) {
+            Actions\CreateMenu::make()->standalone()->canSee(function ($request) {
                 return $request->user()->can('create', static::$model);
             }),
         ];
@@ -85,7 +83,7 @@ class Menu extends Resource
     public static function redirectAfterUpdate(NovaRequest $request, $resource)
     {
         return '/resources/'.static::uriKey();
-    } 
+    }
 
     /**
      * Determine if the current user can create new resources.
@@ -94,7 +92,7 @@ class Menu extends Resource
      * @return bool
      */
     public static function authorizedToCreate(Request $request)
-    { 
+    {
         return false;
     }
 

@@ -2,23 +2,23 @@
 
 namespace Armincms\Contract\Concerns;
 
-trait Authorizable  
-{ 
+trait Authorizable
+{
     /**
      * Bootstrap the model instance.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static function bootAuthorizable()
     {
-        static::saving(function($model) {
+        static::saving(function ($model) {
             $model->ensureAuthenticatable();
         });
     }
 
     /**
      * Ensute that auth relation ship is filled.
-     * 
+     *
      * @return void
      */
     public function ensureAuthenticatable()
@@ -32,18 +32,19 @@ trait Authorizable
 
     /**
      * Query the realted Authenticatable user.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function auth()
     {
         return $this->morphTo();
-    } 
+    }
 
     /**
      * Query where authenticated.
      *
-     * @var \Illuminate\Database\Eloquent\Model $user
+     * @var \Illuminate\Database\Eloquent\Model
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function scopeAuthorize($query, $user = null)

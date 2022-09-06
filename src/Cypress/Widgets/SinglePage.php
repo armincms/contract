@@ -2,9 +2,8 @@
 
 namespace Armincms\Contract\Cypress\Widgets;
 
-use Armincms\Papyrus\Cypress\Widgets\PapyrusPage as Widget;  
-use Zareismail\Cypress\Http\Requests\CypressRequest;
+use Armincms\Papyrus\Cypress\Widgets\PapyrusPage as Widget;
 
 class SinglePage extends Widget
-{        
+{
 }
