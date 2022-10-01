@@ -2,7 +2,7 @@
 
 namespace Armincms\Contract\Nova;
 
-use Benjacho\BelongsToManyField\BelongsToManyField;
+use Armincms\Fields\BelongsToMany;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
@@ -35,7 +35,7 @@ class User extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -43,7 +43,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'email',
+        'email', 'name',
     ];
 
     /**
@@ -65,10 +65,10 @@ class User extends Resource
                 ->required()
                 ->rules('email', 'unique:users,email,{{resourceId}}'),
 
-            BelongsToManyField::make(__('Roles'), 'roles', Role::class)
+            BelongsToMany::make(__('Roles'), 'roles', Role::class)
                 ->required(),
 
-            BelongsToManyField::make(__('Permissions'), 'permissions', Permission::class)
+            BelongsToMany::make(__('Permissions'), 'permissions', Permission::class)
                 ->hideFromIndex(),
 
             Password::make(__('Password'), 'password')
@@ -138,5 +138,15 @@ class User extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the value that should be displayed to represent the resource.
+     *
+     * @return string
+     */
+    public function title()
+    {
+        return trim($this->fullname()) ?: parent::title() ?: $this->email;
     }
 }

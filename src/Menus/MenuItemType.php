@@ -5,7 +5,7 @@ namespace Armincms\Contract\Menus;
 use Armincms\Contract\Gutenberg\Templates\MenuItem;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use OptimistDigital\MenuBuilder\MenuItemTypes\BaseMenuItemType;
+use Outl1ne\MenuBuilder\MenuItemTypes\BaseMenuItemType;
 use Zareismail\Gutenberg\Gutenberg;
 
 abstract class MenuItemType extends BaseMenuItemType
@@ -63,11 +63,11 @@ abstract class MenuItemType extends BaseMenuItemType
         $key = static::getKeyName();
 
         return static::buildIndexQuery($query, $locale)
-                ->get()
-                ->mapInto($resourceClass)
-                ->keyBy($key)
-                ->map->title()
-                ->toArray();
+            ->get()
+            ->mapInto($resourceClass)
+            ->keyBy($key)
+            ->map->title()
+            ->toArray();
     }
 
     /**
@@ -135,9 +135,9 @@ abstract class MenuItemType extends BaseMenuItemType
                 ->nullable()
                 ->options(function () {
                     return Gutenberg::cachedTemplates()
-                                ->where('template', MenuItem::class)
-                                ->keyBy->getKey()
-                                ->map->name;
+                        ->where('template', MenuItem::class)
+                        ->keyBy->getKey()
+                        ->map->name;
                 }),
         ];
     }

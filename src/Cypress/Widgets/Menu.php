@@ -7,7 +7,7 @@ use Armincms\Contract\Gutenberg\Widgets\BootstrapsTemplate;
 use Armincms\Contract\Gutenberg\Widgets\ResolvesDisplay;
 use Armincms\Contract\Nova\Menu as MenuResource;
 use Laravel\Nova\Fields\Select;
-use OptimistDigital\MenuBuilder\MenuBuilder;
+use Outl1ne\MenuBuilder\MenuBuilder;
 use Zareismail\Cypress\Http\Requests\CypressRequest;
 use Zareismail\Gutenberg\Gutenberg;
 use Zareismail\Gutenberg\GutenbergWidget;
@@ -84,7 +84,7 @@ class Menu extends GutenbergWidget
             'hasChildren' => ! empty($childrens),
             'depth' => $depth,
             'active' => trim(request()->path(), '/') == trim(data_get($item, 'value'), '/') ||
-                        request()->url() == data_get($item, 'value'),
+                request()->url() == data_get($item, 'value'),
         ]);
 
         return $this->displayResource($attributes, $depth);

@@ -7,7 +7,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
-use OptimistDigital\MenuBuilder\Nova\Fields\MenuBuilderField;
+use Outl1ne\MenuBuilder\Nova\Fields\MenuBuilderField;
 
 class Menu extends Resource
 {
@@ -19,7 +19,7 @@ class Menu extends Resource
      *
      * @var string
      */
-    public static $model = \OptimistDigital\MenuBuilder\Models\Menu::class;
+    public static $model = \Outl1ne\MenuBuilder\Models\Menu::class;
 
     /**
      * Get the fields displayed by the resource.
@@ -34,7 +34,7 @@ class Menu extends Resource
 
             Text::make(__('Menu Name'), 'name')
                 ->sortable()
-                    ->required()
+                ->required()
                 ->rules('required', 'max:255'),
 
             Panel::make(__('Menu Items'), [

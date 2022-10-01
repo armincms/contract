@@ -11,7 +11,7 @@ use Armincms\Contract\Policies\ExternalLinkPolicy;
 use Armincms\Contract\Policies\MenuPolicy;
 use Armincms\Contract\Policies\PagePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as LaravelServiceProvider;
-use OptimistDigital\MenuBuilder\Models\Menu;
+use Outl1ne\MenuBuilder\Models\Menu;
 
 class AuthServiceProvider extends LaravelServiceProvider
 {

@@ -5,7 +5,6 @@ namespace Armincms\Contract\Providers;
 use Armincms\Contract\Media\PathGenerator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
-use Infinety\Filemanager\FilemanagerTool;
 use Laravel\Nova\Nova;
 
 class MediaServiceProvider extends LaravelServiceProvider
@@ -76,10 +75,6 @@ class MediaServiceProvider extends LaravelServiceProvider
      */
     protected function servingNova()
     {
-        Nova::tools([
-            FilemanagerTool::make()->canSee(function ($request) {
-                return $request->user()->can('viewFileManager');
-            }),
-        ]);
+        Nova::tools([]);
     }
 }

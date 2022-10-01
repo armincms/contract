@@ -4,7 +4,7 @@ namespace Armincms\Contract\Providers;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Illuminate\Support\Str;
-use OptimistDigital\MenuBuilder\MenuItemTypes\BaseMenuItemType;
+use Outl1ne\MenuBuilder\MenuItemTypes\BaseMenuItemType;
 use ReflectionClass;
 use Symfony\Component\Finder\Finder;
 
@@ -68,8 +68,10 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
                 Str::after($menu->getPathname(), $directory.DIRECTORY_SEPARATOR)
             );
 
-            if (is_subclass_of($menu, BaseMenuItemType::class) &&
-                ! (new ReflectionClass($menu))->isAbstract()) {
+            if (
+                is_subclass_of($menu, BaseMenuItemType::class) &&
+                ! (new ReflectionClass($menu))->isAbstract()
+            ) {
                 $menus[] = $menu;
             }
         }

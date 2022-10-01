@@ -19,8 +19,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function boot()
     {
-        app('config')->set('nova.path', 'cp');
+        app('config')->set('nova.path', '/cp');
         app('config')->set('nova.guard', 'admin');
+
+        Nova::initialPath('/resources/users');
 
         parent::boot();
     }
@@ -58,7 +60,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        return [];
+        return [
+            \Armincms\Contract\Nova\Dashboards\Main::make(),
+        ];
     }
 
     /**
@@ -70,7 +74,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             \Armincms\Contract\Nova\Tools\Menu::make(),
-            \Armincms\Bios\Bios::make(),
+            // \Armincms\Bios\Bios::make(),
         ];
     }
 
@@ -93,8 +97,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 Str::after($resource->getPathname(), $directory.DIRECTORY_SEPARATOR)
             );
 
-            if (is_subclass_of($resource, Resource::class) &&
-                ! (new ReflectionClass($resource))->isAbstract()) {
+            if (
+                is_subclass_of($resource, Resource::class) &&
+                ! (new ReflectionClass($resource))->isAbstract()
+            ) {
                 $resources[] = $resource;
             }
         }

@@ -38,7 +38,7 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**
@@ -119,8 +119,7 @@ class Role extends Resource
      */
     public function authorizedToDelete(Request $request)
     {
-        return parent::authorizedToDelete($request) && (
-            $this->count_users + $this->count_admins = 0
+        return parent::authorizedToDelete($request) && ($this->count_users + $this->count_admins = 0
         );
     }
 }

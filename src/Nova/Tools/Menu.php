@@ -2,7 +2,8 @@
 
 namespace Armincms\Contract\Nova\Tools;
 
-use OptimistDigital\MenuBuilder\MenuBuilder;
+use Illuminate\Http\Request;
+use Outl1ne\MenuBuilder\MenuBuilder;
 
 class Menu extends MenuBuilder
 {
@@ -13,6 +14,9 @@ class Menu extends MenuBuilder
      */
     public function renderNavigation()
     {
+    }
 
+    public function menu(Request $request)
+    {
     }
 }
