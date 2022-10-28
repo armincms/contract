@@ -74,7 +74,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             \Armincms\Contract\Nova\Tools\Menu::make(),
-            // \Armincms\Bios\Bios::make(),
         ];
     }
 
