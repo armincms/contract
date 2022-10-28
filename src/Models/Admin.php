@@ -3,6 +3,7 @@
 namespace Armincms\Contract\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -10,10 +11,10 @@ use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class Admin extends Authenticatable
 {
-    use InteractsWithPolicy;
     use HasApiTokens;
     use HasFactory;
     use HasProfile;
+    use InteractsWithPolicy;
     use Notifiable;
 
     /**
@@ -68,5 +69,17 @@ class Admin extends Authenticatable
             'zarehesmaiel@gmail.com',
             config('superadmin.email'),
         ]);
+    }
+
+    /**
+     * Query the related Permission`s.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->morphToMany(PolicyRole::class, 'user', 'policy_user_role', 'user_id')->using(
+            \Zareismail\NovaPolicy\PolicyUserRole::class
+        );
     }
 }

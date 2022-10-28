@@ -2,11 +2,11 @@
 
 namespace Armincms\Contract\Nova;
 
-use Armincms\Fields\BelongsToMany;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
+use Laravel\Nova\Fields\Tag;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Zareismail\NovaPolicy\Nova\Permission;
@@ -64,11 +64,14 @@ class Admin extends Resource
                 ->required()
                 ->rules('email', 'unique:admins,email,{{resourceId}}'),
 
-            BelongsToMany::make(__('Roles'), 'roles', Role::class)
-                ->required(),
+            Tag::make(__('Roles'), 'roles', Role::class)
+                ->required()
+                ->showCreateRelationButton()
+                ->searchable(false),
 
-            BelongsToMany::make(__('Permissions'), 'permissions', Permission::class)
-                ->hideFromIndex(),
+            Tag::make(__('Permissions'), 'permissions', Permission::class)
+                ->hideFromIndex()
+                ->searchable(false),
 
             Password::make(__('Password'), 'password')
                 ->onlyOnForms()
