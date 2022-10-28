@@ -8,6 +8,7 @@ use Armincms\Contract\Concerns\InteractsWithWidgets;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -16,13 +17,13 @@ use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
 {
-    use InteractsWithMedia;
-    use InteractsWithPolicy;
-    use InteractsWithWidgets;
     use HasApiTokens;
     use HasFactory;
     use HasProfile;
+    use InteractsWithMedia;
     use InteractsWithMetadatas;
+    use InteractsWithPolicy;
+    use InteractsWithWidgets;
     use Notifiable;
     use MustVerifyEmail;
 
@@ -75,6 +76,18 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
         static::deleting(function ($model) {
             $model->metadatas()->delete();
         });
+    }
+
+    /**
+     * Query the related Permission`s.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->morphToMany(PolicyRole::class, 'user', 'policy_user_role', 'user_id')->using(
+            \Zareismail\NovaPolicy\PolicyUserRole::class
+        );
     }
 
     /**
