@@ -23,7 +23,7 @@ trait Fields
      *
      * @param  string  $name
      * @param  string  $attribute
-     * @return \Laravle\Nova\Fields\Field
+     * @return \Laravel\Nova\Fields\Field
      */
     public function currencyField(string $name, string $attribute = 'price')
     {
@@ -36,7 +36,7 @@ trait Fields
      *
      * @param  string  $name
      * @param  string  $attribute
-     * @return \Laravle\Nova\Fields\Field
+     * @return \Laravel\Nova\Fields\Field
      */
     public function dateField(string $name, string $attribute = 'date')
     {
@@ -50,7 +50,7 @@ trait Fields
      *
      * @param  string  $name
      * @param  string  $attribute
-     * @return \Laravle\Nova\Fields\Field
+     * @return \Laravel\Nova\Fields\Field
      */
     public function datetimeField(string $name, string $attribute = 'date')
     {
@@ -64,7 +64,7 @@ trait Fields
      *
      * @param  string  $name
      * @param  string  $collection
-     * @return \Laravle\Nova\Fields\Field
+     * @return \Laravel\Nova\Fields\Field
      */
     public function medialibrary($name, $collection = 'image')
     {
@@ -78,7 +78,7 @@ trait Fields
      *
      * @param  string  $name
      * @param  string  $collection
-     * @return \Laravle\Nova\Fields\Field
+     * @return \Laravel\Nova\Fields\Field
      */
     public function resourceEditor(string $name, string $attribute = 'content')
     {
@@ -91,7 +91,7 @@ trait Fields
      * @param  string  $name
      * @param  string  $collection
      * @param  string  $delimiter
-     * @return \Laravle\Nova\Fields\Field
+     * @return \Laravel\Nova\Fields\Field
      */
     public function resourceImage(string $name, string $collection = 'image', $delimiter = '::')
     {
