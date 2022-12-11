@@ -131,7 +131,7 @@ abstract class Option extends NovaResource
      * Retrieve option by the key.
      *
      * @var  string
-     * @var  mixed 
+     * @var  mixed
      *
      * @return mixed
      */

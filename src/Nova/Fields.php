@@ -2,7 +2,6 @@
 
 namespace Armincms\Contract\Nova;
 
-use Amidesfahani\NovaPersianDate\NovaPersianDate;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Currency;
@@ -14,6 +13,8 @@ use Laravel\Nova\Fields\Line;
 use Laravel\Nova\Fields\Stack;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use MZiraki\PersianDateField\PersianDate;
+use MZiraki\PersianDateField\PersianDateTime;
 
 trait Fields
 {
@@ -40,7 +41,7 @@ trait Fields
     public function dateField(string $name, string $attribute = 'date')
     {
         return app()->getLocale() == 'fa'
-            ? NovaPersianDate::make($name, $attribute)->type('date')
+            ? PersianDate::make($name, $attribute)
             : Date::make($name, $attribute);
     }
 
@@ -54,7 +55,7 @@ trait Fields
     public function datetimeField(string $name, string $attribute = 'date')
     {
         return app()->getLocale() == 'fa'
-            ? NovaPersianDate::make($name, $attribute)->type('datetime')
+            ? PersianDateTime::make($name, $attribute)
             : DateTime::make($name, $attribute);
     }
 
