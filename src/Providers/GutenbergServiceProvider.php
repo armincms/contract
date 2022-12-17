@@ -3,7 +3,6 @@
 namespace Armincms\Contract\Providers;
 
 use Armincms\Contract\Cypress\Fragments\Page;
-use Armincms\Contract\Cypress\Home;
 use Armincms\Contract\Cypress\Widgets\Menu;
 use Armincms\Contract\Cypress\Widgets\SinglePage;
 use Armincms\Contract\Gutenberg\Templates\MenuItem;
@@ -22,10 +21,6 @@ class GutenbergServiceProvider extends LaravelServiceProvider implements Deferra
      */
     public function register()
     {
-        Gutenberg::components([
-            Home::class,
-        ]);
-
         Gutenberg::fragments([
             Page::class,
         ]);
