@@ -3,13 +3,13 @@
 namespace Armincms\Contract\Concerns;
 
 use Zareismail\Gutenberg\Gutenberg;
- 
-trait InteractsWithFragments  
-{    
+
+trait InteractsWithFragments
+{
     /**
      * Append urls into attributes.
-     *  
-     * @return void       
+     *
+     * @return void
      */
     public function initializeInteractsWithFragments()
     {
@@ -18,7 +18,7 @@ trait InteractsWithFragments
 
     /**
      * Get url's as attribute.
-     * 
+     *
      * @return array
      */
     public function getUrlsAttribute()
@@ -28,64 +28,64 @@ trait InteractsWithFragments
 
     /**
      * Get the url for the given request.
-     * 
-     * @param \Zareismail\Cypress\Http\Requests\CypressRequest $request 
-     * @return string         
+     *
+     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
+     * @return string
      */
     public function getUrl($request)
-    {  
-        return once(function() use ($request) { 
-            return optional($this->searchFragment($request))->getUrl($this->getUri()); 
+    {
+        return once(function () use ($request) {
+            return optional($this->searchFragment($request))->getUrl($this->getUri());
         });
     }
 
     /**
      * Find fragment for given request.
-     * 
-     * @param  \Illuminate\Http\Request $request 
-     * @return \Illuminate\Database\Eloquent\Model|null        
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function searchFragment($request)
     {
         $fragments = Gutenberg::cachedFragments()->forHandler($this->cypressFragment());
         $website = $request->resolveComponent()->website();
 
-        return $fragments->firstWhere('website_id', $website->getKey()) 
-            ?: $fragments->first(); 
+        return $fragments->firstWhere('website_id', $website->getKey())
+            ?: $fragments->first();
     }
 
     /**
      * Get the availabel url addresses.
-     *  
-     * @return array        
+     *
+     * @return array
      */
     public function urls()
     {
-        return $this->fragments()->map(function($fragment) {
+        return $this->fragments()->map(function ($fragment) {
             return [
-                'name'      => $fragment->name,
-                'url'       => $fragment->getUrl($this->getUri()),
-                'website'   => $fragment->website->name,
+                'name' => $fragment->name,
+                'url' => $fragment->getUrl($this->getUri()),
+                'website' => $fragment->website->name,
             ];
         });
     }
 
     /**
      * Get the attachaed fragments.
-     * 
+     *
      * @return \Illuminate\Support\Collection
      */
     public function fragments()
     {
         return Gutenberg::cachedFragments()
-            ->where('fragment', $this->cypressFragment())                    
+            ->where('fragment', $this->cypressFragment())
             ->loadMissing('website');
     }
 
     /**
      * Get the corresponding cypress fragment.
-     * 
-     * @return 
+     *
+     * @return
      */
     abstract public function cypressFragment(): string;
 }

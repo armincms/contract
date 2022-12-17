@@ -1,15 +1,14 @@
 <?php
 
 namespace Armincms\Contract\Providers;
-  
-use Illuminate\Support\Facades\Gate;   
-use Illuminate\Support\Str; 
-use Laravel\Nova\Actions\ActionResource;  
+
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Laravel\Nova\Resource;
-use Symfony\Component\Finder\Finder; 
 use ReflectionClass;
+use Symfony\Component\Finder\Finder;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -19,12 +18,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      * @return void
      */
     public function boot()
-    { 
-        app('config')->set('nova.path', 'cp');
+    {
+        app('config')->set('nova.path', '/cp');
         app('config')->set('nova.guard', 'admin');
 
-        parent::boot(); 
-    } 
+        Nova::initialPath('/resources/users');
+
+        parent::boot();
+    }
 
     /**
      * Register the Nova gate.
@@ -59,7 +60,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards()
     {
-        return [];
+        return [
+            \Armincms\Contract\Nova\Dashboards\Main::make(),
+        ];
     }
 
     /**
@@ -71,7 +74,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             \Armincms\Contract\Nova\Tools\Menu::make(),
-            \Armincms\Bios\Bios::make(),
         ];
     }
 
@@ -83,7 +85,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function resources()
     {
         $namespace = 'Armincms\\Contract\\Nova\\';
-        $directory = dirname(__DIR__).DIRECTORY_SEPARATOR.'Nova'; 
+        $directory = dirname(__DIR__).DIRECTORY_SEPARATOR.'Nova';
 
         $resources = [];
 
@@ -92,10 +94,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 ['/', '.php'],
                 ['\\', ''],
                 Str::after($resource->getPathname(), $directory.DIRECTORY_SEPARATOR)
-            ); 
+            );
 
-            if (is_subclass_of($resource, Resource::class) &&
-                ! (new ReflectionClass($resource))->isAbstract()) {
+            if (
+                is_subclass_of($resource, Resource::class) &&
+                ! (new ReflectionClass($resource))->isAbstract()
+            ) {
                 $resources[] = $resource;
             }
         }

@@ -2,89 +2,89 @@
 
 namespace Armincms\Contract\Cypress\Widgets;
 
-use Armincms\Contract\Gutenberg\Templates\MenuItem;  
-use Armincms\Contract\Gutenberg\Widgets\BootstrapsTemplate;  
-use Armincms\Contract\Gutenberg\Widgets\ResolvesDisplay;  
+use Armincms\Contract\Gutenberg\Templates\MenuItem;
+use Armincms\Contract\Gutenberg\Widgets\BootstrapsTemplate;
+use Armincms\Contract\Gutenberg\Widgets\ResolvesDisplay;
 use Armincms\Contract\Nova\Menu as MenuResource;
-use Laravel\Nova\Fields\Select; 
-use OptimistDigital\MenuBuilder\MenuBuilder;
-use Zareismail\Cypress\Http\Requests\CypressRequest; 
+use Laravel\Nova\Fields\Select;
+use Outl1ne\MenuBuilder\MenuBuilder;
+use Zareismail\Cypress\Http\Requests\CypressRequest;
 use Zareismail\Gutenberg\Gutenberg;
 use Zareismail\Gutenberg\GutenbergWidget;
 
 class Menu extends GutenbergWidget
-{        
-    use BootstrapsTemplate;  
+{
+    use BootstrapsTemplate;
     use ResolvesDisplay {
         displayResource as parentDisplayResource;
     }
 
     /**
      * Bootstrap the resource for the given request.
-     * 
-     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest $request 
-     * @param  \Zareismail\Cypress\Layout $layout 
-     * @return void                  
+     *
+     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
+     * @param  \Zareismail\Cypress\Layout  $layout
+     * @return void
      */
     public function boot(CypressRequest $request, $layout)
-    {    
+    {
         parent::boot($request, $layout);
 
-    	$menuClass = MenuBuilder::getMenuClass();
+        $menuClass = MenuBuilder::getMenuClass();
         $menu = $menuClass::findOrFail($this->metaValue('menu'));
 
         $this->withMeta([
             'menu' => $menu->formatForAPI(app()->getLocale()),
         ]);
 
-        collect()->range(0, 4)->each(function($depth) use ($request, $layout) {
-            if ($templateKey = $this->metaValue("row.{$depth}")) { 
+        collect()->range(0, 4)->each(function ($depth) use ($request, $layout) {
+            if ($templateKey = $this->metaValue("row.{$depth}")) {
                 $template = $this->bootstrapTemplate($request, $layout, $templateKey);
 
-                $this->displayResourceUsing(function($attributes) use ($template) {
+                $this->displayResourceUsing(function ($attributes) use ($template) {
                     return $template->gutenbergTemplate($attributes)->render();
                 }, $depth);
-            } 
+            }
         });
     }
 
     /**
      * Serialize the widget fro template.
-     * 
+     *
      * @return array
      */
     public function serializeForDisplay(): array
-    {  
-        $html = collect($this->metaValue('menu.menuItems'))->reduce(function($htmls, $item) {
-            return $htmls . $this->renderItem($item, 0);
+    {
+        $html = collect($this->metaValue('menu.menuItems'))->reduce(function ($htmls, $item) {
+            return $htmls.$this->renderItem($item, 0);
         });
 
         return [
             'name' => $this->metaValue('menu.name'),
-            'items'=> $html,
+            'items' => $html,
         ];
     }
 
     /**
      * Renders menu items.
-     * 
-     * @param  string $item  
-     * @param  string $depth 
-     * @return string        
+     *
+     * @param  string  $item
+     * @param  string  $depth
+     * @return string
      */
     public function renderItem($item, $depth)
-    {   
-        $childrens = collect($item['children'])->reduce(function($htmls, $item) use ($depth) {
-            return $htmls . $this->renderItem($item, $depth + 1);            
-        }); 
+    {
+        $childrens = collect($item['children'])->reduce(function ($htmls, $item) use ($depth) {
+            return $htmls.$this->renderItem($item, $depth + 1);
+        });
 
         $attributes = array_merge($item, [
             'url' => $item['value'] ?? '#!',
-            'childrens' => $childrens, 
+            'childrens' => $childrens,
             'hasChildren' => ! empty($childrens),
-            'depth' => $depth, 
+            'depth' => $depth,
             'active' => trim(request()->path(), '/') == trim(data_get($item, 'value'), '/') ||
-                        request()->url() == data_get($item, 'value'),
+                request()->url() == data_get($item, 'value'),
         ]);
 
         return $this->displayResource($attributes, $depth);
@@ -140,7 +140,7 @@ class Menu extends GutenbergWidget
 
     /**
      * Query related display templates.
-     * 
+     *
      * @return string
      */
     public static function relatableTemplates($request, $query)
@@ -148,20 +148,20 @@ class Menu extends GutenbergWidget
         return $query->handledBy(
             \Armincms\Contract\Gutenberg\Templates\Navbar::class
         );
-    } 
+    }
 
     /**
      * Display resource for the given attributes.
-     * 
-     * @param  array $attributes 
-     * @param  string $resource   
-     * @return string             
+     *
+     * @param  array  $attributes
+     * @param  string  $resource
+     * @return string
      */
     public function displayResource(array $attributes, string $resource = null)
-    { 
+    {
         $html = $this->parentDisplayResource($attributes, $resource);
 
-        return is_numeric($resource) && $resource && ! $html 
+        return is_numeric($resource) && $resource && ! $html
             ? $this->parentDisplayResource($attributes, $resource - 1)
             : $html;
     }

@@ -4,25 +4,19 @@
     "keywords": [],
     "license": "MIT",
     "require": {
-        "amidesfahani/nova-persian-date": "^1.0",
-        "armincms/bios": "^0.3",
-        "armincms/nova-translation": "^1.1",
+        "armincms/option" : "~0.1",
+        "armincms/nova-translation": "~2.0",
         "armincms/conversion": "~0.2",
-        "armincms/papyrus": "~1.0",
-        "benjacho/belongs-to-many-field": "~2.0",
-        "cviebrock/eloquent-sluggable": "~8.0",
-        "dmitrybubyakin/nova-medialibrary-field": "~3.2",
-        "gregoriohc/laravel-nova-theme-responsive": "~0.8",
-        "infinety-es/nova-filemanager": "~2.5",
-        "laravel/nova": "^3.0",
-        "laravel/sanctum": "^2.11",
-        "optimistdigital/nova-menu-builder": "~6.0",
-        "pishran/nova-rtl-theme": "~1.5",
-        "spatie/laravel-medialibrary": "~9.7",
-        "zareismail/cypress": "^1.0",
-        "zareismail/gutenberg": "~0.1",
-        "zareismail/nova-policy": "~1.1",
-        "zareismail/nova-resource-manager": "~0.3"
+        "armincms/papyrus": "~2.0",
+        "cviebrock/eloquent-sluggable": "~9.0",
+        "dmitrybubyakin/nova-medialibrary-field": "~4.0",
+        "laravel/nova": "~4.0",
+        "mziraki/nova-persian-date-field": "^1.0",
+        "outl1ne/nova-menu-builder": "~7.0",
+        "spatie/laravel-medialibrary": "~10.0",
+        "zareismail/cypress": "~1.0",
+        "zareismail/gutenberg": "~1.0",
+        "zareismail/nova-policy": "~2.0"
     },
     "autoload": {
         "psr-4": {
@@ -48,5 +42,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "version": "1.9.2"
+    "version": "2.0.0"
 }

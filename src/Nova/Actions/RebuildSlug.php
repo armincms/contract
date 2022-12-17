@@ -2,11 +2,11 @@
 
 namespace Armincms\Contract\Nova\Actions;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class RebuildSlug extends Action
 {
@@ -29,9 +29,10 @@ class RebuildSlug extends Action
     /**
      * Get the fields available on the action.
      *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function fields()
+    public function fields(NovaRequest $request)
     {
         return [
             Boolean::make(__('Include url'), 'url')

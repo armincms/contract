@@ -2,20 +2,19 @@
 
 namespace Armincms\Contract\Nova;
 
-use Benjacho\BelongsToManyField\BelongsToManyField; 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\PasswordConfirmation;
+use Laravel\Nova\Fields\Tag;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Panel;
 use Zareismail\NovaPolicy\Nova\Permission;
 
 class Admin extends Resource
-{ 
+{
     use Localization;
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -35,7 +34,7 @@ class Admin extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -43,7 +42,7 @@ class Admin extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'email', 'name',
     ];
 
     /**
@@ -65,11 +64,14 @@ class Admin extends Resource
                 ->required()
                 ->rules('email', 'unique:admins,email,{{resourceId}}'),
 
-            BelongsToManyField::make(__('Roles'), 'roles', Role::class)
-                ->required(),
+            Tag::make(__('Roles'), 'roles', Role::class)
+                ->required()
+                ->showCreateRelationButton()
+                ->searchable(false),
 
-            BelongsToManyField::make(__('Permissions'), 'permissions', Permission::class)
-                ->hideFromIndex(),
+            Tag::make(__('Permissions'), 'permissions', Permission::class)
+                ->hideFromIndex()
+                ->searchable(false),
 
             Password::make(__('Password'), 'password')
                 ->onlyOnForms()
@@ -136,5 +138,15 @@ class Admin extends Resource
     public function actions(Request $request)
     {
         return [];
+    }
+
+    /**
+     * Get the value that should be displayed to represent the resource.
+     *
+     * @return string
+     */
+    public function title()
+    {
+        return trim($this->fullname()) ?: parent::title() ?: $this->email;
     }
 }

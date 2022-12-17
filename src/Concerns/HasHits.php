@@ -4,21 +4,21 @@ namespace Armincms\Contract\Concerns;
 
 use Armincms\Contract\Events\ResourceHitsEvent;
 
-trait HasHits  
-{  
+trait HasHits
+{
     /**
      * Bootstrap the model instance.
-     * 
-     * @return 
+     *
+     * @return
      */
     public function initializeHasHits()
     {
-        $this->casts = array_merge(['hits' => 'integer'], (array) $this->casts); 
-    } 
+        $this->casts = array_merge(['hits' => 'integer'], (array) $this->casts);
+    }
 
     /**
      * Process the hits.
-     * 
+     *
      * @return $this
      */
     public function viewed()
@@ -31,8 +31,8 @@ trait HasHits
 
     /**
      * Increase the model hits.
-     * 
-     * @return integer
+     *
+     * @return int
      */
     public function incrementHits()
     {
@@ -43,8 +43,8 @@ trait HasHits
 
     /**
      * Dispatch hits event.
-     * 
-     * @return 
+     *
+     * @return
      */
     protected function dispatchHitsEvent()
     {

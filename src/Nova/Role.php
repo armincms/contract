@@ -3,15 +3,14 @@
 namespace Armincms\Contract\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphedByMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Zareismail\NovaPolicy\Nova\Role as Resource;
 
 class Role extends Resource
-{ 
+{
     use Localization;
-    
+
     /**
      * The logical group associated with the resource.
      *
@@ -39,8 +38,8 @@ class Role extends Resource
      * @var array
      */
     public static $search = [
-        'id',
-    ]; 
+        'name',
+    ];
 
     /**
      * Get the fields displayed by the resource.
@@ -120,8 +119,7 @@ class Role extends Resource
      */
     public function authorizedToDelete(Request $request)
     {
-        return parent::authorizedToDelete($request) && (
-            $this->count_users + $this->count_admins = 0
-        ); 
+        return parent::authorizedToDelete($request) && ($this->count_users + $this->count_admins = 0
+        );
     }
 }

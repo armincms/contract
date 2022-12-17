@@ -1,14 +1,14 @@
 <?php
 
 namespace Armincms\Contract\Models;
- 
-use Armincms\Contract\Concerns\Authorizable; 
-use Armincms\Contract\Contracts\Authenticatable; 
+
+use Armincms\Contract\Concerns\Authorizable;
+use Armincms\Contract\Contracts\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;  
+use Illuminate\Database\Eloquent\Model;
 
 class ExternalLink extends Model implements Authenticatable
-{  
+{
     /**
      * Indicates if the model should be timestamped.
      *
@@ -17,5 +17,5 @@ class ExternalLink extends Model implements Authenticatable
     public $timestamps = false;
 
     use Authorizable;
-    use HasFactory; 
+    use HasFactory;
 }

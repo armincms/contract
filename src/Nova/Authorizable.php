@@ -5,8 +5,8 @@ namespace Armincms\Contract\Nova;
 use Armincms\Contract\Models\Authenticatable;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-trait Authorizable  
-{   
+trait Authorizable
+{
     /**
      * Initialize the given index query.
      *
@@ -19,14 +19,14 @@ trait Authorizable
     protected static function initializeQuery(NovaRequest $request, $query, $search, $withTrashed)
     {
         return parent::initializeQuery($request, $query, $search, $withTrashed)
-                    ->when(static::authenticatable(), function($query) {
+                    ->when(static::authenticatable(), function ($query) {
                         $query->authorize();
                     });
     }
 
     /**
      * Determine if resource is Authorizable.
-     * 
+     *
      * @return bool
      */
     public static function authenticatable()

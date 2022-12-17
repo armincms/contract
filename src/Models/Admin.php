@@ -2,8 +2,8 @@
 
 namespace Armincms\Contract\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,10 +11,10 @@ use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class Admin extends Authenticatable
 {
-    use InteractsWithPolicy;
     use HasApiTokens;
     use HasFactory;
     use HasProfile;
+    use InteractsWithPolicy;
     use Notifiable;
 
     /**
@@ -60,14 +60,26 @@ class Admin extends Authenticatable
 
     /**
      * Determine the current user is Developer.
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
     public function isDeveloper()
-    { 
+    {
         return in_array($this->email, [
             'zarehesmaiel@gmail.com',
             config('superadmin.email'),
         ]);
+    }
+
+    /**
+     * Query the related Permission`s.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->morphToMany(PolicyRole::class, 'user', 'policy_user_role', 'user_id')->using(
+            \Zareismail\NovaPolicy\PolicyUserRole::class
+        );
     }
 }

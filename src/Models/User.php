@@ -8,21 +8,22 @@ use Armincms\Contract\Concerns\InteractsWithWidgets;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens; 
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
 {
-    use InteractsWithMedia;
-    use InteractsWithPolicy;
-    use InteractsWithWidgets;
     use HasApiTokens;
     use HasFactory;
     use HasProfile;
+    use InteractsWithMedia;
     use InteractsWithMetadatas;
+    use InteractsWithPolicy;
+    use InteractsWithWidgets;
     use Notifiable;
     use MustVerifyEmail;
 
@@ -53,7 +54,7 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',  
+        'email_verified_at' => 'datetime',
     ];
 
     /**
@@ -61,8 +62,8 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
      *
      * @var array
      */
-    protected $appends = [ 
-        'avatar'
+    protected $appends = [
+        'avatar',
     ];
 
     /**
@@ -71,15 +72,27 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
      * @return void
      */
     protected static function booted()
-    { 
-        static::deleting(function($model) {
+    {
+        static::deleting(function ($model) {
             $model->metadatas()->delete();
         });
     }
 
     /**
+     * Query the related Permission`s.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->morphToMany(PolicyRole::class, 'user', 'policy_user_role', 'user_id')->using(
+            \Zareismail\NovaPolicy\PolicyUserRole::class
+        );
+    }
+
+    /**
      * Get the user avatar image.
-     * 
+     *
      * @return array
      */
     public function getAvatarAttribute()
@@ -95,17 +108,17 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
     protected static function newFactory()
     {
         return app()->make(\Armincms\Factories\UserFactory::class);
-    } 
+    }
 
     /**
      * Get the realted metadata model.
-     * 
+     *
      * @return string
      */
     public function getMetadataModel()
     {
         return UserMetadata::class;
-    } 
+    }
 
     public function getProfileAttribute()
     {
@@ -114,7 +127,7 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
 
     /**
      * Get the available media collections.
-     * 
+     *
      * @return array
      */
     public function getMediaCollections(): array
@@ -122,10 +135,10 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
         return [
             'avatar' => [
                 'conversions' => ['common'],
-                'multiple'  => false,
-                'disk'      => 'image',
-                'limit'     => 20, // count of images
-                'accepts'   => ['image/jpeg', 'image/jpg', 'image/png'],
+                'multiple' => false,
+                'disk' => 'image',
+                'limit' => 20, // count of images
+                'accepts' => ['image/jpeg', 'image/jpg', 'image/png'],
             ],
         ];
     }

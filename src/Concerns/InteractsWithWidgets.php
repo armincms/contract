@@ -1,11 +1,9 @@
 <?php
 
 namespace Armincms\Contract\Concerns;
- 
-use Zareismail\Gutenberg\Models\GutenbergWidget;
- 
-trait InteractsWithWidgets  
-{     
+
+trait InteractsWithWidgets
+{
     /**
      * Serialize the model to pass into the client view.
      *
@@ -14,8 +12,8 @@ trait InteractsWithWidgets
      */
     public function serializeForWidget($request, $detail = true): array
     {
-        return $detail 
-            ? $this->serializeForDetailWidget($request) 
+        return $detail
+            ? $this->serializeForDetailWidget($request)
             : $this->serializeForIndexWidget($request);
     }
 

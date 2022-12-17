@@ -1,15 +1,15 @@
 <?php
 
 namespace Armincms\Contract\Policies;
- 
+
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Contracts\Auth\Authenticatable;  
-use Illuminate\Database\Eloquent\Model;  
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class Policy
 {
-    use HandlesAuthorization; 
-    
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view the admin.
      *
@@ -18,7 +18,7 @@ abstract class Policy
      * @return mixed
      */
     public function view(Authenticatable $user, Model $model)
-    { 
+    {
     }
 
     /**
@@ -28,7 +28,7 @@ abstract class Policy
      * @return mixed
      */
     public function create(Authenticatable $user)
-    { 
+    {
     }
 
     /**
@@ -39,7 +39,7 @@ abstract class Policy
      * @return mixed
      */
     public function update(Authenticatable $user, Model $model)
-    { 
+    {
     }
 
     /**
@@ -50,6 +50,6 @@ abstract class Policy
      * @return mixed
      */
     public function delete(Authenticatable $user, Model $model)
-    { 
+    {
     }
 }
