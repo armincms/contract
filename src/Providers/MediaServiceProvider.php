@@ -73,7 +73,7 @@ class MediaServiceProvider extends LaravelServiceProvider
     protected function servingNova()
     {
         Nova::tools([
-            NovaFileManager::make()->canSee(fn (Request $request) => $request->user()->can('viewFileManager')),
+            NovaFileManager::make()->canSee(fn (Request $request) => $request->user()?->can('viewFileManager')),
         ]);
     }
 }
