@@ -2,6 +2,7 @@
 
 namespace Armincms\Contract\Providers;
 
+use Armincms\Contract\Nova\Layout;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use Illuminate\Support\Str;
 use Outl1ne\MenuBuilder\MenuItemTypes\BaseMenuItemType;
@@ -30,6 +31,10 @@ class ConfigurationServiceProvider extends LaravelServiceProvider
         if (! $this->app->runningInConsole()) {
             $this->setUncacheableConfigurations();
         }
+
+        $this->app->booted(function () {
+            app('config')->set('gutenberg.resources.layout', Layout::class);
+        });
     }
 
     /**

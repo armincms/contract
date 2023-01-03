@@ -5,6 +5,7 @@ namespace Armincms\Contract\Concerns;
 use Armincms\Contract\Contracts\HasMeta;
 use Armincms\Contract\Contracts\Hitsable;
 use Illuminate\Support\Str;
+use Laravel\Nova\Nova;
 
 trait InteractsWithModel
 {
@@ -150,5 +151,45 @@ trait InteractsWithModel
     public function tags()
     {
         return $this->metaValue('meta.title');
+    }
+
+    /**
+     * Get possible places for widget.
+     *
+     * @return array
+     */
+    public function displayOptions(): array
+    {
+        if (is_null($resource = Nova::resourceForModel($this->model()))) {
+            return [];
+        }
+
+        return $resource::newModel()->get()->keyBy([$this, 'widgetFilterKey'])->mapInto($resource)->map->title()->toArray();
+    }
+
+    /**
+     * Filter relatable widgets on fragment page.
+     *
+     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Model  $widget
+     * @return bool
+     */
+    public function filterRelatableWidget($request, $widget): bool
+    {
+        $key = $this->widgetFilterKey($this->metaValue('resource'));
+
+        return collect($widget->pivot?->config->get('hide_on'))->doesntContain($key) &&
+            with(collect($widget->pivot?->config->get('display_on'))->filter(), fn ($displays) => $displays->isEmpty() || $displays->contains($key));
+    }
+
+    /**
+     * Get key for widget filtering.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $widget
+     * @return string
+     */
+    public function widgetFilterKey($model): string
+    {
+        return "{$this->uriKey()}->{$model->getKey()}";
     }
 }
