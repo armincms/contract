@@ -178,8 +178,8 @@ trait InteractsWithModel
     {
         $key = $this->widgetFilterKey($this->metaValue('resource'));
 
-        return collect($widget->pivot?->config->get('hide_on'))->doesntContain($key) &&
-            with(collect($widget->pivot?->config->get('display_on'))->filter(), fn ($displays) => $displays->isEmpty() || $displays->contains($key));
+        return collect($widget->pivot?->config?->get('hide_on'))->doesntContain($key) &&
+            with(collect($widget->pivot?->config?->get('display_on'))->filter(), fn ($displays) => $displays->isEmpty() || $displays->contains($key));
     }
 
     /**
