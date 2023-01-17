@@ -230,7 +230,7 @@ trait InteractsWithMedia
                 'multiple' => false,
                 'disk' => 'image',
                 'limit' => 20, // count of images
-                'accepts' => ['image/jpeg', 'image/jpg', 'image/png'],
+                'accepts' => ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
             ],
         ];
     }
