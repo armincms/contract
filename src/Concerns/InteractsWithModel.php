@@ -10,6 +10,11 @@ use Laravel\Nova\Nova;
 trait InteractsWithModel
 {
     /**
+     * The resource instance.
+     */
+    protected $resource;
+
+    /**
      * Resolve the resoruce's value for the given request.
      *
      * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
@@ -25,21 +30,19 @@ trait InteractsWithModel
             return false;
         }
 
-        if (is_null($resource = $this->findModelByUri($request, $resourceUri))) {
+        if (is_null($this->resource = $this->findModelByUri($request, $resourceUri))) {
             return false;
         }
 
-        if ($resource instanceof Hitsable) {
-            $resource->viewed();
+        if ($this->resource instanceof Hitsable) {
+            $this->resource->viewed();
         }
 
-        if ($resource instanceof HasMeta) {
+        if ($this->resource instanceof HasMeta) {
             $this->withMeta([
-                'meta' => (array) $resource->meta,
+                'meta' => (array) $this->resource->meta,
             ]);
         }
-
-        $this->withMeta(compact('resource'));
 
         return true;
     }
@@ -191,5 +194,33 @@ trait InteractsWithModel
     public function widgetFilterKey($model): string
     {
         return "{$this->uriKey()}->{$model->getKey()}";
+    }
+
+    /**
+     * Get additional meta value for the given key.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public function metaValue(string $key, $default = null)
+    {
+        if ($key === 'resource') {
+            return $this->resource();
+        }
+
+        if (Str::startsWith($key, 'resource.')) {
+            return data_get($this->resource(), Str::after($key, 'resource.'), $default);
+        }
+
+        return parent::metaValue($key, $default);
+    }
+
+    /**
+     * Get the resource instance.
+     */
+    public function resource()
+    {
+        return $this->resource;
     }
 }
