@@ -92,19 +92,15 @@ abstract class Option extends NovaResource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        if (collect(static::options())) {
-            (new static())->buildAvailableFields($request, [])
-                ->authorized($request)
+        $options = tap((new static())->buildAvailableFields($request, []), function($fields) use ($request) {
+            $fields->authorized($request)
                 ->each->resolveForAction($request)
-                ->filter(function ($field) {
-                    return ! static::store()->has($field->attribute);
-                })
-                ->each(function ($field) {
-                    static::store()->put($field->attribute, $field->value, static::storeTag());
-                });
-        }
+                ->filter(fn ($field) => ! static::store()->has($field->attribute))
+                ->each(fn ($field)  => static::store()->put($field->attribute, $field->value, static::storeTag()));
 
-        return $query->tagged(static::storeTag());
+        });
+
+        return $query->tagged(static::storeTag())->whereIn('key', $options->map->attribute);
     }
 
     /**
