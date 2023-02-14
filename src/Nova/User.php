@@ -63,7 +63,8 @@ class User extends Resource
 
             Text::make(__('Email'), 'email')
                 ->required()
-                ->rules('email', 'unique:users,email,{{resourceId}}'),
+                ->rules('email', 'unique:users,email,{{resourceId}}')
+                ->showWhenPeeking(),
 
             Tag::make(__('Roles'), 'roles', Role::class)
                 ->showCreateRelationButton()
@@ -83,16 +84,20 @@ class User extends Resource
 
             Panel::make(__('Profile'), [
                 Text::make(__('Firstname'), 'metadata::firstname')
-                    ->hideFromIndex(),
+                    ->hideFromIndex()
+                    ->showWhenPeeking(),
 
                 Text::make(__('Lastname'), 'metadata::lastname')
-                    ->hideFromIndex(),
+                    ->hideFromIndex()
+                    ->showWhenPeeking(),
 
                 Text::make(__('Mobile Number'), 'metadata::mobile')
-                    ->hideFromIndex(),
+                    ->hideFromIndex()
+                    ->showWhenPeeking(),
 
                 Text::make(__('Phone Number'), 'metadata::phone')
-                    ->hideFromIndex(),
+                    ->hideFromIndex()
+                    ->showWhenPeeking(),
 
                 $this->medialibrary(__('User Avatar'), 'avatar'),
             ]),
