@@ -13,6 +13,7 @@ use Laravel\Nova\Fields\Line;
 use Laravel\Nova\Fields\Stack;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Manogi\Tiptap\Tiptap;
 use MZiraki\PersianDateField\PersianDate;
 use MZiraki\PersianDateField\PersianDateTime;
 
@@ -21,8 +22,6 @@ trait Fields
     /**
      * Create new currency field.
      *
-     * @param  string  $name
-     * @param  string  $attribute
      * @return \Laravel\Nova\Fields\Field
      */
     public function currencyField(string $name, string $attribute = 'price')
@@ -34,8 +33,6 @@ trait Fields
     /**
      * Create new date field.
      *
-     * @param  string  $name
-     * @param  string  $attribute
      * @return \Laravel\Nova\Fields\Field
      */
     public function dateField(string $name, string $attribute = 'date')
@@ -48,8 +45,6 @@ trait Fields
     /**
      * Create new datetime field.
      *
-     * @param  string  $name
-     * @param  string  $attribute
      * @return \Laravel\Nova\Fields\Field
      */
     public function datetimeField(string $name, string $attribute = 'date')
@@ -76,20 +71,28 @@ trait Fields
     /**
      * Create new Medialibrary field.
      *
-     * @param  string  $name
      * @param  string  $collection
      * @return \Laravel\Nova\Fields\Field
      */
     public function resourceEditor(string $name, string $attribute = 'content')
     {
-        return Trix::make(__($name), $attribute)->withFiles('file');
+        switch (General::option('editor', Tiptap::class)) {
+            case Tiptap::class:
+                return Tiptap::make(__($name), $attribute)->headingLevels([1, 2, 3, 4, 5, 6])->buttons([
+                    'heading', 'italic', 'bold', 'link', 'code', 'strike', 'underline', 'highlight',
+                    'bulletList', 'orderedList', 'textAlign', 'rtl',
+                    'br',
+                    'image', 'codeBlock', 'blockquote', 'horizontalRule', 'hardBreak', 'table', 'history', 'editHtml',
+                ]);
+
+            default:
+                return Trix::make(__($name), $attribute)->withFiles('file');
+        }
     }
 
     /**
      * Create new Image field.
      *
-     * @param  string  $name
-     * @param  string  $collection
      * @param  string  $delimiter
      * @return \Laravel\Nova\Fields\Field
      */
@@ -122,9 +125,9 @@ trait Fields
                     $locale = Str::after($attribute, $delimiter);
 
                     return $model->translations
-                                 ->where('locale', $locale)
-                                 ->first(null, $model)
-                                 ->getFirstMediaUrl($collection);
+                        ->where('locale', $locale)
+                        ->first(null, $model)
+                        ->getFirstMediaUrl($collection);
                 })
                 ->preview(function ($value) {
                     return $value;
@@ -135,8 +138,6 @@ trait Fields
     /**
      * Create KeyValue field to handle metadata.
      *
-     * @param  string  $name
-     * @param  string  $attribute
      * @return \Laravel\Nova\Fields\Field
      */
     public function resourceMeta(string $name, string $attribute = 'meta')
@@ -161,7 +162,6 @@ trait Fields
      * Create stack field to display resource urls for given fragment.
      *
      * @param  string  $fragment
-     * @param  string  $name
      * @return \Laravel\Nova\Fields\Field
      */
     public function resourceUrls(string $name = 'Urls')
@@ -186,7 +186,6 @@ trait Fields
     /**
      * Get the fields that are available for the given request.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return \Laravel\Nova\Fields\FieldCollection
      */
     public function availableFields(NovaRequest $request)

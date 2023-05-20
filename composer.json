@@ -9,15 +9,17 @@
         "armincms/conversion": "~0.2",
         "armincms/papyrus": "~2.0",
         "cviebrock/eloquent-sluggable": "~9.0",
-        "dmitrybubyakin/nova-medialibrary-field": "4.23.0",
-        "laravel/nova": "~4.0",
+        "dmitrybubyakin/nova-medialibrary-field": "~4.0",
+        "laravel/nova": "4.23.0",
         "mziraki/nova-persian-date-field": "^1.0",
         "oneduo/nova-file-manager": "^0.7",
         "outl1ne/nova-menu-builder": "~7.0",
         "spatie/laravel-medialibrary": "~10.0",
         "zareismail/cypress": "~1.0",
         "zareismail/gutenberg": "~1.0",
-        "zareismail/nova-policy": "~2.0"
+        "zareismail/nova-policy": "~2.0",
+        "manogi/nova-tiptap": "^3.2"
+
     },
     "autoload": {
         "psr-4": {
