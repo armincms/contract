@@ -13,7 +13,6 @@ abstract class Policy
     /**
      * Determine whether the user can view the admin.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Illuminate\Database\Eloquent\Model  $admin
      * @return mixed
      */
@@ -24,7 +23,6 @@ abstract class Policy
     /**
      * Determine whether the user can create admins.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @return mixed
      */
     public function create(Authenticatable $user)
@@ -34,7 +32,6 @@ abstract class Policy
     /**
      * Determine whether the user can update the admin.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Illuminate\Database\Eloquent\Model  $admin
      * @return mixed
      */
@@ -45,7 +42,6 @@ abstract class Policy
     /**
      * Determine whether the user can delete the admin.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Illuminate\Database\Eloquent\Model  $admin
      * @return mixed
      */

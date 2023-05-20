@@ -14,7 +14,6 @@ trait ResolvesDisplay
     /**
      * Define the callback that should be used to display the resources.
      *
-     * @param  callable  $displayResourceCallback
      * @param  string  $resource
      * @return $this
      */
@@ -28,7 +27,6 @@ trait ResolvesDisplay
     /**
      * Display resource for the given attributes.
      *
-     * @param  array  $attributes
      * @param  string  $resource
      * @return string
      */

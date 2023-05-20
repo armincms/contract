@@ -50,7 +50,6 @@ trait InteractsWithMetadatas
     /**
      * Update metadatas for given associated array.
      *
-     * @param  array  $metadatas
      * @return $this
      */
     public function updateMetadatas(array $metadatas)
@@ -190,7 +189,6 @@ trait InteractsWithMetadatas
     /**
      * Get the fillable attributes of a given array.
      *
-     * @param  array  $attributes
      * @return array
      */
     protected function fillableFromArray(array $attributes)
@@ -216,7 +214,6 @@ trait InteractsWithMetadatas
     /**
      * Determin if given key should be store in metadata.
      *
-     * @param  string  $key
      * @return bool
      */
     public function isMetadataAttribute(string $key)
@@ -227,7 +224,6 @@ trait InteractsWithMetadatas
     /**
      * Get key name of metadata attribute.
      *
-     * @param  string  $key
      * @return string
      */
     public function parseMetadataAttribute(string $key)

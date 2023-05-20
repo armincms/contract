@@ -11,7 +11,6 @@ class SmartMeta extends Plugin
     /**
      * Bootstrap the resource for the given request.
      *
-     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
      * @param  \Zareismail\Cypress\Layout  $layout
      * @return void
      */
@@ -41,8 +40,6 @@ class SmartMeta extends Plugin
 
     /**
      * Determine if the plugin should be loaded as html meta.
-     *
-     * @return bool
      */
     public function asMetadata(): bool
     {

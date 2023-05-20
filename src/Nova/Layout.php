@@ -48,8 +48,6 @@ class Layout extends Resource
 
     /**
      * Get possible places for widget.
-     *
-     * @return array
      */
     public function displayOptions(): array
     {

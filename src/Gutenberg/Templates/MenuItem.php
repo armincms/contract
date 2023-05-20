@@ -16,8 +16,6 @@ class MenuItem extends Template
 
     /**
      * Register the given variables.
-     *
-     * @return array
      */
     public static function variables(): array
     {

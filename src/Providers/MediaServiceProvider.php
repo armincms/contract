@@ -13,8 +13,6 @@ class MediaServiceProvider extends LaravelServiceProvider
 {
     /**
      * List of the storage disks.
-     *
-     * @var
      */
     protected $storageDisks = [
         'image' => 'images',

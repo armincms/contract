@@ -73,8 +73,6 @@ class Admin extends Authenticatable
 
     /**
      * Query the related Permission`s.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles(): BelongsToMany
     {

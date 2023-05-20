@@ -8,8 +8,6 @@ class Page extends Fragment
 {
     /**
      * Get the resource Model class.
-     *
-     * @return
      */
     public function model(): string
     {

@@ -22,8 +22,8 @@ class FieldCollection extends Collection
         }
 
         return $this->whereInstanceOf(Targomaan::class)
-                    ->map->findFieldByAttribute($attribute)
-                    ->filter()
-                    ->first();
+            ->map->findFieldByAttribute($attribute)
+            ->filter()
+            ->first();
     }
 }

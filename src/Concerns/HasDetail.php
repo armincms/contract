@@ -6,8 +6,6 @@ trait HasDetail
 {
     /**
      * Bootstrap the model instance.
-     *
-     * @return
      */
     public function initializeHasDetail()
     {

@@ -8,8 +8,6 @@ trait HasHits
 {
     /**
      * Bootstrap the model instance.
-     *
-     * @return
      */
     public function initializeHasHits()
     {
@@ -43,8 +41,6 @@ trait HasHits
 
     /**
      * Dispatch hits event.
-     *
-     * @return
      */
     protected function dispatchHitsEvent()
     {

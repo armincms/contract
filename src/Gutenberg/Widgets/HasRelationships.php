@@ -7,7 +7,6 @@ trait HasRelationships
     /**
      * Get the realted model for the given relation ship.
      *
-     * @param  string  $relationship
      * @return \Illuminate\Pagination\LengthAwarePagination
      */
     public function belongsTo(string $relationship)
@@ -19,7 +18,6 @@ trait HasRelationships
      * Get the realted models for the given relation ship.
      *
      * @param  int  $perPage
-     * @param  string  $relationship
      * @return \Illuminate\Pagination\LengthAwarePagination
      */
     public function hasMany(string $relationship, int $perPage = null)
@@ -31,7 +29,6 @@ trait HasRelationships
      * Get the realted models for the given relation ship.
      *
      * @param  int  $perPage
-     * @param  string  $relationship
      * @return \Illuminate\Pagination\LengthAwarePagination
      */
     public function belongsToMany(string $relationship, int $perPage = null)
@@ -42,7 +39,6 @@ trait HasRelationships
     /**
      * Build new query for the given relationship.
      *
-     * @param  string  $relationship
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function queryRelationship(string $relationship)
@@ -57,7 +53,6 @@ trait HasRelationships
     /**
      * Create new related model instance.
      *
-     * @param  string  $relationship
      * @return \Illuminate\Database\Eloquent\Model
      */
     protected function newRelationModel(string $relationship)
@@ -69,9 +64,6 @@ trait HasRelationships
 
     /**
      * Get the related model.
-     *
-     * @param  string  $relationship
-     * @return string
      */
     abstract protected static function relationModel(string $relationship): string;
 
@@ -79,7 +71,6 @@ trait HasRelationships
      * Get the reated keys for the given relatinoship.
      *
      *
-     * @param  string  $relationship
      * @return int|array
      */
     protected function getRelatedKeys(string $relationship)
@@ -90,7 +81,6 @@ trait HasRelationships
     /**
      * Get the parent model.
      *
-     * @param  string  $relationship
      * @return \Illuminate\Database\Eloquent\Model
      */
     abstract protected function getParent(string $relationship);

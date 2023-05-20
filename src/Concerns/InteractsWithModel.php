@@ -99,8 +99,6 @@ trait InteractsWithModel
 
     /**
      * Get the resource Model class.
-     *
-     * @return
      */
     abstract public function model(): string;
 
@@ -158,8 +156,6 @@ trait InteractsWithModel
 
     /**
      * Get possible places for widget.
-     *
-     * @return array
      */
     public function displayOptions(): array
     {
@@ -175,7 +171,6 @@ trait InteractsWithModel
      *
      * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
      * @param  \Illuminate\Database\Eloquent\Model  $widget
-     * @return bool
      */
     public function filterRelatableWidget($request, $widget): bool
     {
@@ -189,7 +184,6 @@ trait InteractsWithModel
      * Get key for widget filtering.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $widget
-     * @return string
      */
     public function widgetFilterKey($model): string
     {
@@ -199,8 +193,7 @@ trait InteractsWithModel
     /**
      * Get additional meta value for the given key.
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  mixed  $default
      * @return mixed
      */
     public function metaValue(string $key, $default = null)

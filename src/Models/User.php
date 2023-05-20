@@ -80,8 +80,6 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
 
     /**
      * Query the related Permission`s.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles(): BelongsToMany
     {
@@ -127,8 +125,6 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
 
     /**
      * Get the available media collections.
-     *
-     * @return array
      */
     public function getMediaCollections(): array
     {
@@ -147,7 +143,6 @@ class User extends Authenticatable implements MustVerifyEmailContract, HasMedia
      * Serialize the model to pass into the client view.
      *
      * @param Zareismail\Cypress\Request\CypressRequest
-     * @return array
      */
     public function serializeForWidget($request, $detail = true): array
     {

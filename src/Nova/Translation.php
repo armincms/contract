@@ -10,8 +10,6 @@ class Translation extends Resource
 
     /**
      * Get the avaialabe locales.
-     *
-     * @return array
      */
     public static function getLocales(): array
     {

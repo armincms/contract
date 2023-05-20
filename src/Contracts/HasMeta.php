@@ -7,7 +7,6 @@ interface HasMeta
     /**
      * Retrive value from meta values for the give nkey.
      *
-     * @param  string  $key
      * @param  mixed  $default
      * @return mixed
      */

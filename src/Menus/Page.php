@@ -9,8 +9,6 @@ class Page extends MenuItemType
 {
     /**
      * Get the resource name.
-     *
-     * @return string
      */
     public static function resourceName(): string
     {
@@ -80,7 +78,6 @@ class Page extends MenuItemType
      *
      * @param $value The key from options list that was selected.
      * @param $data The data from item fields.
-     * @param $locale
      * @return any
      */
     public static function getValue($value, ?array $data, $locale)

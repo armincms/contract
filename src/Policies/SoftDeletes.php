@@ -10,7 +10,6 @@ trait SoftDeletes
     /**
      * Determine whether the user can restore the admin.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Illuminate\Database\Eloquent\Model  $admin
      * @return mixed
      */
@@ -21,7 +20,6 @@ trait SoftDeletes
     /**
      * Determine whether the user can permanently delete the admin.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @param  \Illuminate\Database\Eloquent\Model  $admin
      * @return mixed
      */

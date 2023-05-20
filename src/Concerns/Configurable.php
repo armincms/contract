@@ -6,8 +6,6 @@ trait Configurable
 {
     /**
      * Bootstrap the model instance.
-     *
-     * @return
      */
     public function initializeConfigurable()
     {

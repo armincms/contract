@@ -27,7 +27,7 @@ class PolicyRole extends Model
     public function users()
     {
         return $this->morphedByMany(User::class, 'user', 'policy_user_role')
-                    ->using(PolicyUserRole::class);
+            ->using(PolicyUserRole::class);
     }
 
     /**
@@ -38,6 +38,6 @@ class PolicyRole extends Model
     public function admins()
     {
         return $this->morphedByMany(Admin::class, 'user', 'policy_user_role')
-                    ->using(PolicyUserRole::class);
+            ->using(PolicyUserRole::class);
     }
 }

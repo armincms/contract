@@ -18,8 +18,6 @@ trait GeneratesTrackingCode
 
     /**
      * Determine if the model has tracking_code.
-     *
-     * @return bool
      */
     public function isTrackable(): bool
     {
@@ -54,8 +52,6 @@ trait GeneratesTrackingCode
 
     /**
      * Generate new random code.
-     *
-     * @return string
      */
     public function generateRandomCode(): string
     {

@@ -22,7 +22,6 @@ class Menu extends GutenbergWidget
     /**
      * Bootstrap the resource for the given request.
      *
-     * @param  \Zareismail\Cypress\Http\Requests\CypressRequest  $request
      * @param  \Zareismail\Cypress\Layout  $layout
      * @return void
      */
@@ -50,8 +49,6 @@ class Menu extends GutenbergWidget
 
     /**
      * Serialize the widget fro template.
-     *
-     * @return array
      */
     public function serializeForDisplay(): array
     {
@@ -153,7 +150,6 @@ class Menu extends GutenbergWidget
     /**
      * Display resource for the given attributes.
      *
-     * @param  array  $attributes
      * @param  string  $resource
      * @return string
      */

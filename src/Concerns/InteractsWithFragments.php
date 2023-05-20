@@ -84,8 +84,6 @@ trait InteractsWithFragments
 
     /**
      * Get the corresponding cypress fragment.
-     *
-     * @return
      */
     abstract public function cypressFragment(): string;
 }

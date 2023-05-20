@@ -9,8 +9,6 @@ class Pagination extends Template
 {
     /**
      * Register the given variables.
-     *
-     * @return array
      */
     public static function variables(): array
     {

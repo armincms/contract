@@ -6,8 +6,6 @@ trait Authorizable
 {
     /**
      * Bootstrap the model instance.
-     *
-     * @return
      */
     public static function bootAuthorizable()
     {
@@ -52,7 +50,7 @@ trait Authorizable
         $user = is_null($user) ? request()->user() : $user;
 
         return $query
-                    ->where($query->qualifyColumn('auth_id'), optional($user)->getKey())
-                    ->where($query->qualifyColumn('auth_type'), optional($user)->getMorphClass());
+            ->where($query->qualifyColumn('auth_id'), optional($user)->getKey())
+            ->where($query->qualifyColumn('auth_type'), optional($user)->getMorphClass());
     }
 }

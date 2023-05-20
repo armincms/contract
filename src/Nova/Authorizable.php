@@ -10,7 +10,6 @@ trait Authorizable
     /**
      * Initialize the given index query.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string  $search
      * @param  string  $withTrashed
@@ -19,9 +18,9 @@ trait Authorizable
     protected static function initializeQuery(NovaRequest $request, $query, $search, $withTrashed)
     {
         return parent::initializeQuery($request, $query, $search, $withTrashed)
-                    ->when(static::authenticatable(), function ($query) {
-                        $query->authorize();
-                    });
+            ->when(static::authenticatable(), function ($query) {
+                $query->authorize();
+            });
     }
 
     /**

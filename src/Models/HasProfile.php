@@ -6,8 +6,6 @@ trait HasProfile
 {
     /**
      * Get the fullname.
-     *
-     * @return
      */
     public function fullname()
     {
@@ -16,8 +14,6 @@ trait HasProfile
 
     /**
      * Get the firstname.
-     *
-     * @return
      */
     public function firstname()
     {
@@ -26,8 +22,6 @@ trait HasProfile
 
     /**
      * Get the lastname.
-     *
-     * @return
      */
     public function lastname()
     {

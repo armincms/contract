@@ -59,7 +59,6 @@ abstract class Option extends NovaResource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function fieldsForIndex(NovaRequest $request)
@@ -73,7 +72,6 @@ abstract class Option extends NovaResource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
     public function fieldsForUpdate(NovaRequest $request)
@@ -86,17 +84,16 @@ abstract class Option extends NovaResource
     /**
      * Build an "index" query for the given resource.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        $options = tap((new static())->buildAvailableFields($request, []), function($fields) use ($request) {
+        $options = tap((new static())->buildAvailableFields($request, []), function ($fields) use ($request) {
             $fields->authorized($request)
                 ->each->resolveForAction($request)
                 ->filter(fn ($field) => ! static::store()->has($field->attribute))
-                ->each(fn ($field)  => static::store()->put($field->attribute, $field->value, static::storeTag()));
+                ->each(fn ($field) => static::store()->put($field->attribute, $field->value, static::storeTag()));
 
         });
 
@@ -105,8 +102,6 @@ abstract class Option extends NovaResource
 
     /**
      * Get the store tag name.
-     *
-     * @return string
      */
     public static function storeTag(): string
     {
@@ -115,8 +110,6 @@ abstract class Option extends NovaResource
 
     /**
      * Get the option store name.
-     *
-     * @return
      */
     public static function store()
     {
@@ -163,7 +156,6 @@ abstract class Option extends NovaResource
     /**
      * Determine if the current user can create new resources.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public static function authorizedToCreate(Request $request)
@@ -174,7 +166,6 @@ abstract class Option extends NovaResource
     /**
      * Determine if the current user can replicate the given resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function authorizedToReplicate(Request $request)
@@ -185,7 +176,6 @@ abstract class Option extends NovaResource
     /**
      * Determine if the current user can delete the given resource or throw an exception.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -198,7 +188,6 @@ abstract class Option extends NovaResource
     /**
      * Determine if the current user can delete the given resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function authorizedToDelete(Request $request)
@@ -209,7 +198,6 @@ abstract class Option extends NovaResource
     /**
      * Determine if the current user can view the given resource or throw an exception.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -222,7 +210,6 @@ abstract class Option extends NovaResource
     /**
      * Determine if the current user can view the given resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function authorizedToView(Request $request)
@@ -233,7 +220,6 @@ abstract class Option extends NovaResource
     /**
      * Return the location to redirect the user after update.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Resource  $resource
      * @return \Laravel\Nova\URL|string
      */

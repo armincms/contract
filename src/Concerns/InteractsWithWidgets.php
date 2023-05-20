@@ -8,7 +8,6 @@ trait InteractsWithWidgets
      * Serialize the model to pass into the client view.
      *
      * @param Zareismail\Cypress\Request\CypressRequest
-     * @return array
      */
     public function serializeForWidget($request, $detail = true): array
     {

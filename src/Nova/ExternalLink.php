@@ -37,7 +37,6 @@ class ExternalLink extends Resource
     /**
      * Get the fields displayed by the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function fields(Request $request)
@@ -58,7 +57,6 @@ class ExternalLink extends Resource
     /**
      * Return the location to redirect the user after creation.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Resource  $resource
      * @return string
      */
@@ -70,7 +68,6 @@ class ExternalLink extends Resource
     /**
      * Return the location to redirect the user after update.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @param  \Laravel\Nova\Resource  $resource
      * @return string
      */
@@ -82,7 +79,6 @@ class ExternalLink extends Resource
     /**
      * Determine if the current user can view the given resource or throw an exception.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return void
      *
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -95,7 +91,6 @@ class ExternalLink extends Resource
     /**
      * Determine if the current user can view the given resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return bool
      */
     public function authorizedToView(Request $request)

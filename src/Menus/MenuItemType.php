@@ -14,7 +14,6 @@ abstract class MenuItemType extends BaseMenuItemType
      * Get the menu link identifier that can be used to tell different custom
      * links apart (ie 'page' or 'product').
      *
-     * @return string
      **/
     public static function getIdentifier(): string
     {
@@ -27,7 +26,6 @@ abstract class MenuItemType extends BaseMenuItemType
      * Get menu link name shown in  a dropdown in CMS when selecting link type
      * ie ('Product Link').
      *
-     * @return string
      **/
     public static function getName(): string
     {
@@ -54,7 +52,6 @@ abstract class MenuItemType extends BaseMenuItemType
      * Should be a map of [key => value, ...], where key is a unique identifier
      * and value is the displayed string.
      *
-     * @return array
      **/
     public static function getOptions($locale): array
     {
@@ -88,9 +85,7 @@ abstract class MenuItemType extends BaseMenuItemType
     /**
      * Get the subtitle value shown in CMS menu items list.
      *
-     * @param $value
      * @param $data The data from item fields.
-     * @param $locale
      * @return string
      **/
     public static function getDisplayValue($value, ?array $data, $locale)
@@ -115,7 +110,6 @@ abstract class MenuItemType extends BaseMenuItemType
      *
      * @param $value The key from options list that was selected.
      * @param $data The data from item fields.
-     * @param $locale
      * @return any
      */
     public static function getValue($value, ?array $data, $locale)
@@ -171,8 +165,6 @@ abstract class MenuItemType extends BaseMenuItemType
 
     /**
      * Get the resource name.
-     *
-     * @return string
      */
     abstract public static function resourceName(): string;
 

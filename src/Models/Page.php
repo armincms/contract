@@ -8,8 +8,6 @@ class Page extends Model
 {
     /**
      * Get the corresponding cypress fragment.
-     *
-     * @return
      */
     public function cypressFragment(): string
     {
@@ -18,8 +16,6 @@ class Page extends Model
 
     /**
      * Get scoped resource name.
-     *
-     * @return string
      */
     public static function resourceName(): string
     {

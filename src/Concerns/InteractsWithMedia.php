@@ -58,8 +58,6 @@ trait InteractsWithMedia
 
     /**
      * Register spatie media collections.
-     *
-     * @return void
      */
     public function registerMediaCollections(): void
     {
@@ -102,7 +100,6 @@ trait InteractsWithMedia
     /**
      * Create new driver if not exists.
      *
-     * @param  string  $driver
      * @return $this
      */
     protected function createDriverIfNotExists(string $driver)
@@ -121,8 +118,6 @@ trait InteractsWithMedia
     /**
      * Register new media conversion with the givenv schema.
      *
-     * @param  string  $name
-     * @param  array  $schema
      * @return void
      */
     public function registerMediaConversion(string $name, array $schema)
@@ -219,8 +214,6 @@ trait InteractsWithMedia
 
     /**
      * Get the available media collections.
-     *
-     * @return array
      */
     public function getMediaCollections(): array
     {

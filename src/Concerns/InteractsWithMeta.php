@@ -6,8 +6,6 @@ trait InteractsWithMeta
 {
     /**
      * Bootstrap the model instance.
-     *
-     * @return
      */
     public function initializeInteractsWithMeta()
     {
@@ -28,7 +26,6 @@ trait InteractsWithMeta
     /**
      * Retrive value from meta values for the give nkey.
      *
-     * @param  string  $key
      * @param  mixed  $default
      * @return mixed
      */
@@ -39,8 +36,6 @@ trait InteractsWithMeta
 
     /**
      * Get the default meta datas.
-     *
-     * @return array
      */
     protected function defaultMeta(): array
     {

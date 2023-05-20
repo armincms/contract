@@ -8,8 +8,6 @@ trait InteractsWithUri
 {
     /**
      * Bootstrap the model instance.
-     *
-     * @return
      */
     public static function bootInteractsWithUri()
     {
@@ -20,8 +18,6 @@ trait InteractsWithUri
 
     /**
      * Initialize the model instance.
-     *
-     * @return
      */
     public function initializeInteractsWithUri()
     {
