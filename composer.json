@@ -9,7 +9,7 @@
         "armincms/conversion": "~0.2",
         "armincms/papyrus": "~2.0",
         "cviebrock/eloquent-sluggable": "~9.0",
-        "dmitrybubyakin/nova-medialibrary-field": "~4.0",
+        "dmitrybubyakin/nova-medialibrary-field": "4.23.0",
         "laravel/nova": "~4.0",
         "mziraki/nova-persian-date-field": "^1.0",
         "oneduo/nova-file-manager": "^0.7",
