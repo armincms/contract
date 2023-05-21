@@ -121,7 +121,7 @@ trait InteractsWithModel
      */
     public function title()
     {
-        return $this->metaValue('meta.title');
+        return $this->metaValue('resource.name', $this->metaValue('meta.title'));
     }
 
     /**
@@ -131,7 +131,7 @@ trait InteractsWithModel
      */
     public function description()
     {
-        return $this->metaValue('meta.title');
+        return $this->metaValue('resource.summary', $this->metaValue('meta.description'));
     }
 
     /**
@@ -151,7 +151,7 @@ trait InteractsWithModel
      */
     public function tags()
     {
-        return $this->metaValue('meta.title');
+        return $this->metaValue('meta.tags');
     }
 
     /**

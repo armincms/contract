@@ -17,23 +17,27 @@ class SmartMeta extends Plugin
     public function boot(CypressRequest $request, $layout)
     {
         $website = $request->resolveComponent()->website();
-        $title = $website->name;
         $description = $website->description;
         $tags = [$website->name];
 
-        if (! $request->isFragmentRequest()) {
-            $title .= ' | '.$website->title;
-        } else {
-            $title .= ' | '.$request->resolveFragment()->fragment()->name;
-            $tags[] = $request->resolveFragment()->fragment()->name;
-        }
+        $title = collect([$website->name])
+            ->when(
+                $request->isFragmentRequest(),
+                function ($titles) use ($request, $description, $tags) {
+                    $fragment = $request->resolveFragment();
+                    $this->withMeta(['meta' => $fragment->metaValue('meta', [])]);
 
-        if ($request->isFragmentRequest() && $request->resolveFragment() instanceof Resource) {
-            $metaTitle = $request->resolveFragment()->title();
-            $title .= ($metaTitle ? ' | '.$metaTitle : '');
-            $description = $request->resolveFragment()->description() ?: $description;
-            $tags = array_merge($tags, (array) $request->resolveFragment()->tags());
-        }
+                    $titles->push($fragment->fragment()->name);
+
+                    if ($fragment instanceof Resource) {
+                        $titles->push($request->resolveFragment()->title());
+                        $description = $request->resolveFragment()->description() ?: $description;
+                        $tags = array_merge($tags, (array) $request->resolveFragment()->tags());
+                    }
+                },
+                fn ($titles) => $titles->push($website->title)
+            )
+            ->implode((' | '));
 
         $this->withMeta(compact('title', 'description', 'tags'));
     }
@@ -54,8 +58,8 @@ class SmartMeta extends Plugin
     public function render()
     {
         return '<title>'.$this->metaValue('title').'</title>'.
-               '<meta name="title" content="'.$this->metaValue('title').'">'.
-               '<meta name="description" content="'.$this->metaValue('description').'">'.
-               '<meta name="tags" content="'.implode(',', $this->metaValue('tags')).'">';
+               '<meta name="title" content="'.($this->metaValue('meta.title') ?: $this->metaValue('title')).'">'.
+               '<meta name="description" content="'.($this->metaValue('meta.description') ?: $this->metaValue('description')).'">'.
+               '<meta name="tags" content="'.implode(',', (array) ($this->metaValue('meta.tags') ?: $this->metaValue('tags'))).'">';
     }
 }
