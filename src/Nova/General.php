@@ -2,6 +2,7 @@
 
 namespace Armincms\Contract\Nova;
 
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -21,6 +22,10 @@ class General extends Option
                 Trix::class => 'Trix Editor',
                 Tiptap::class => 'Tiptap Editor',
             ])->default(Tiptap::class)->displayUsingLabels(),
+
+            Boolean::make(__('Disable Otimize Images'), 'disable_image_optimize')
+                ->default(false)
+                ->help(_('Disable image optimization for shared host to prevent "proce_open" errors.')),
         ];
     }
 }

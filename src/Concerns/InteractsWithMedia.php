@@ -2,6 +2,8 @@
 
 namespace Armincms\Contract\Concerns;
 
+use Armincms\Contract\Nova\General;
+
 trait InteractsWithMedia
 {
     use \Spatie\MediaLibrary\InteractsWithMedia;
@@ -127,6 +129,10 @@ trait InteractsWithMedia
             $conversion->height($schema['height'] ?? 0);
             $conversion->quality(100 - ($schema['compress'] ?? 0));
             $conversion->extractVideoFrameAtSecond(1);
+
+            if (General::option('disable_image_optimize', false)) {
+                $conversion->nonOptimized();
+            }
 
             if (isset($schema['extension'])) {
                 $conversion = $conversion->format($schema['extension']);
