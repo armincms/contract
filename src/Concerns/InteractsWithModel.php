@@ -40,7 +40,7 @@ trait InteractsWithModel
 
         if ($this->resource instanceof HasMeta) {
             $this->withMeta([
-                'meta' => (array) $this->resource->meta,
+                'meta' => collect($this->resource->meta)->toArray(),
             ]);
         }
 
